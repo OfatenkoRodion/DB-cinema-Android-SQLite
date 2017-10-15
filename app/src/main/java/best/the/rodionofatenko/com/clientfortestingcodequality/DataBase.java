@@ -14,11 +14,16 @@ public class DataBase extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //sqLiteDatabase.setForeignKeyConstraintsEnabled (true);
-        sqLiteDatabase.execSQL("PRAGMA foreign_keys=ON;");
+        sqLiteDatabase.execSQL("PRAGMA foreign_keys=1;");
         sqLiteDatabase.execSQL("create table Contact(id integer primary key autoincrement, name text, phone integer);");
-        sqLiteDatabase.execSQL("create table Lesson(id integer primary key autoincrement, idStud integer, lesson text, FOREIGN KEY (idStud) REFERENCES Contact(id) ON DELETE CASCADE);");
+        sqLiteDatabase.execSQL("create table Lesson(id integer primary key autoincrement, idStud integer, lesson text, FOREIGN KEY(idStud) REFERENCES Contact(id));");
     }
 
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        super.onConfigure(db);
+        db.setForeignKeyConstraintsEnabled(true);
+    }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
