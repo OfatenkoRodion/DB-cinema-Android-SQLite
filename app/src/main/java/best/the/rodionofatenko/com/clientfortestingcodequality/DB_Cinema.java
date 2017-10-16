@@ -19,12 +19,19 @@ public class DB_Cinema extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase)
     {   sqLiteDatabase.execSQL("PRAGMA foreign_keys=1;");
-        sqLiteDatabase.execSQL("create table Film(id integer primary key autoincrement, name text, description text);");
-        sqLiteDatabase.execSQL("create table Hall(id integer primary key autoincrement, number integer, spaciousness integer);");
-        sqLiteDatabase.execSQL("create table Session(session_date text, session_time text, id_Hall integer, id_Film integer," +
+        sqLiteDatabase.execSQL("CREATE table Film(id integer PRIMARY KEY autoincrement, name text, description text);");
+        sqLiteDatabase.execSQL("CREATE table Hall(id integer PRIMARY KEY autoincrement, number integer, spaciousness integer);");
+        sqLiteDatabase.execSQL("CREATE table Session(date text, time text, id_Hall integer, id_Film integer," +
                 " FOREIGN KEY(id_Film) REFERENCES Film(id)," +
                 " FOREIGN KEY(id_Hall) REFERENCES Hall(id)," +
-                " PRIMARY KEY (session_date, session_time, id_Hall));");
+                " PRIMARY KEY (date, time, id_Hall));");
+        sqLiteDatabase.execSQL("CREATE table PlaceCategory(id integer PRIMARY KEY autoincrement, name text);");
+        sqLiteDatabase.execSQL("CREATE table PriceCategory(id_PlaceCategory integer, session_date text, session_time text, session_id_Hall integer," +
+                " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)" +
+                " FOREIGN KEY(session_date) REFERENCES Session(data)" +
+                " FOREIGN KEY(session_time) REFERENCES Session(time)" +
+                " FOREIGN KEY(session_id_Hall) REFERENCES Session(id_Hall)" +
+                " PRIMARY KEY (session_date, session_time, session_id_Hall,id_PlaceCategory));");
     }
 
     @Override
@@ -61,8 +68,8 @@ public class DB_Cinema extends SQLiteOpenHelper
     {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("session_date",session_date);
-        contentValues.put("session_time",session_time);
+        contentValues.put("date",session_date);
+        contentValues.put("time",session_time);
         contentValues.put("id_Hall",id_Hall);
         contentValues.put("id_Film",id_Film);
         sqLiteDatabase.insert("Session",null,contentValues);

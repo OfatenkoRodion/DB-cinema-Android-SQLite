@@ -80,8 +80,8 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
             if (cursor.moveToFirst()){
                 do  {
                     Toast.makeText(getApplicationContext(),
-                            "session_date:"+cursor.getString(cursor.getColumnIndex("session_date"))
-                                    +" session_time:"+cursor.getString(cursor.getColumnIndex("session_time"))
+                            "session_date:"+cursor.getString(cursor.getColumnIndex("date"))
+                                    +" session_time:"+cursor.getString(cursor.getColumnIndex("time"))
                                     +" id_Hall:"+cursor.getInt(cursor.getColumnIndex("id_Hall"))
                                     +" id_Film:"+cursor.getInt(cursor.getColumnIndex("id_Film")), Toast.LENGTH_SHORT).show();
                 } while (cursor.moveToNext());
