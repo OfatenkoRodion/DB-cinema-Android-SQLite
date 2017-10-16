@@ -19,19 +19,17 @@ public class DB_Cinema extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase)
     {   sqLiteDatabase.execSQL("PRAGMA foreign_keys=1;");
-        sqLiteDatabase.execSQL("CREATE table Film(id integer PRIMARY KEY autoincrement, name text, description text);");
-        sqLiteDatabase.execSQL("CREATE table Hall(id integer PRIMARY KEY autoincrement, number integer, spaciousness integer);");
-        sqLiteDatabase.execSQL("CREATE table Session(date text, time text, id_Hall integer, id_Film integer," +
+        sqLiteDatabase.execSQL("CREATE table Film(id integer PRIMARY KEY autoincrement, name text NOT NULL, description text NOT NULL, UNIQUE(name));");
+        sqLiteDatabase.execSQL("CREATE table Hall(id integer PRIMARY KEY autoincrement, number integer NOT NULL, spaciousness integer NOT NULL, UNIQUE(number));");
+        sqLiteDatabase.execSQL("CREATE table Session(id integer PRIMARY KEY autoincrement, date text NOT NULL, time text NOT NULL, id_Hall integer NOT NULL, id_Film integer NOT NULL," +
                 " FOREIGN KEY(id_Film) REFERENCES Film(id)," +
                 " FOREIGN KEY(id_Hall) REFERENCES Hall(id)," +
-                " PRIMARY KEY (date, time, id_Hall));");
-        sqLiteDatabase.execSQL("CREATE table PlaceCategory(id integer PRIMARY KEY autoincrement, name text);");
-        sqLiteDatabase.execSQL("CREATE table PriceCategory(id_PlaceCategory integer, session_date text, session_time text, session_id_Hall integer," +
-                " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)" +
-                " FOREIGN KEY(session_date) REFERENCES Session(data)" +
-                " FOREIGN KEY(session_time) REFERENCES Session(time)" +
-                " FOREIGN KEY(session_id_Hall) REFERENCES Session(id_Hall)" +
-                " PRIMARY KEY (session_date, session_time, session_id_Hall,id_PlaceCategory));");
+                " UNIQUE (date, time, id_Hall));");
+        sqLiteDatabase.execSQL("CREATE table PlaceCategory(id integer PRIMARY KEY autoincrement, name text NOT NULL);");
+        sqLiteDatabase.execSQL("CREATE table PriceCategory(id integer PRIMARY KEY autoincrement,id_PlaceCategory integer NOT NULL, id_session integer NOT NULL, price text NOT NULL," +
+                " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
+                " FOREIGN KEY(id_session) REFERENCES Session(id)," +
+                " UNIQUE (id_PlaceCategory,price));");
     }
 
     @Override
