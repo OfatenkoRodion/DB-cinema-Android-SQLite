@@ -6,11 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
 {
-
+    ArrayList<Item> items = new ArrayList<Item>();
+    BoxAdapter boxAdapter;
     Button insertFilm, insertHall, insertSession;
     Button showFilms, showHalls, showSessions;
     DB_Cinema  bd_cinema;
@@ -27,6 +31,20 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationButtons();
         initializationEditText();
         bd_cinema = new DB_Cinema(this);
+
+        boxAdapter = new BoxAdapter(this, items);
+        ListView lvFilm = (ListView) findViewById(R.id.filmsList);
+        lvFilm.setAdapter(boxAdapter);
+        Cursor cursor= bd_cinema.getWritableDatabase().query("Film",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                Item item = new Item();
+                item.addText("id:"+cursor.getInt(cursor.getColumnIndex("id"))
+                        +" name:"+cursor.getString(cursor.getColumnIndex("name"))
+                        +" description:"+cursor.getString(cursor.getColumnIndex("description")));
+                items.add(item);
+            } while (cursor.moveToNext());
+        }
     }
 
     @Override
@@ -36,6 +54,20 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         if(view == insertFilm)
         {
             bd_cinema.addFilm(film_name.getText().toString(),film_description.getText().toString());
+            items.clear();
+            Cursor cursor= bd_cinema.getWritableDatabase().query("Film",null,null,null,null,null,null);
+            if (cursor.moveToFirst()){
+                do  {
+                    Item item = new Item();
+                            item.addText("id:"+cursor.getInt(cursor.getColumnIndex("id"))
+                                    +" name:"+cursor.getString(cursor.getColumnIndex("name"))
+                                    +" description:"+cursor.getString(cursor.getColumnIndex("description")));
+                    items.add(item);
+                } while (cursor.moveToNext());
+            }
+
+            boxAdapter.notifyDataSetChanged();
+
         } else
         if(view == insertHall)
         {
