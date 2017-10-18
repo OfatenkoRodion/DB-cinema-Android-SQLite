@@ -11,10 +11,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Adapter.FilmAdapter;
+import Entity.Film;
+
 public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
 {
-    ArrayList<Item> items = new ArrayList<Item>();
-    BoxAdapter boxAdapter;
+    ArrayList<Film> items = new ArrayList<Film>();
+    FilmAdapter boxAdapter;
     Button insertFilm, insertHall, insertSession;
     Button showFilms, showHalls, showSessions;
     DB_Cinema  bd_cinema;
@@ -32,17 +35,16 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationEditText();
         bd_cinema = new DB_Cinema(this);
 
-        boxAdapter = new BoxAdapter(this, items);
+        boxAdapter = new FilmAdapter(this, items);
         ListView lvFilm = (ListView) findViewById(R.id.filmsList);
         lvFilm.setAdapter(boxAdapter);
+
+
         Cursor cursor= bd_cinema.getWritableDatabase().query("Film",null,null,null,null,null,null);
         if (cursor.moveToFirst()){
             do  {
-                Item item = new Item();
-                item.addText("id:"+cursor.getInt(cursor.getColumnIndex("id"))
-                        +" name:"+cursor.getString(cursor.getColumnIndex("name"))
-                        +" description:"+cursor.getString(cursor.getColumnIndex("description")));
-                items.add(item);
+                Film film = new Film(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("description")));
+                items.add(film);
             } while (cursor.moveToNext());
         }
     }
@@ -58,11 +60,8 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
             Cursor cursor= bd_cinema.getWritableDatabase().query("Film",null,null,null,null,null,null);
             if (cursor.moveToFirst()){
                 do  {
-                    Item item = new Item();
-                            item.addText("id:"+cursor.getInt(cursor.getColumnIndex("id"))
-                                    +" name:"+cursor.getString(cursor.getColumnIndex("name"))
-                                    +" description:"+cursor.getString(cursor.getColumnIndex("description")));
-                    items.add(item);
+                    Film film = new Film(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("description")));
+                    items.add(film);
                 } while (cursor.moveToNext());
             }
 

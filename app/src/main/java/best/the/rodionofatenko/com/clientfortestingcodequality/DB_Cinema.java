@@ -3,8 +3,13 @@ package best.the.rodionofatenko.com.clientfortestingcodequality;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+
+import Entity.Film;
 
 public class DB_Cinema extends SQLiteOpenHelper
 {
@@ -71,5 +76,19 @@ public class DB_Cinema extends SQLiteOpenHelper
         contentValues.put("id_Hall",id_Hall);
         contentValues.put("id_Film",id_Film);
         sqLiteDatabase.insert("Session",null,contentValues);
+    }
+    public ArrayList<Film> getListFilm()
+    {
+        ArrayList<Film> films = new ArrayList<Film>();
+        Cursor cursor= this.getWritableDatabase().query("Film",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                Film film = new Film(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("description")));
+                films.add(film);
+            } while (cursor.moveToNext());
+        }
+        if (films.size()==0)
+            return null;
+        return films;
     }
 }
