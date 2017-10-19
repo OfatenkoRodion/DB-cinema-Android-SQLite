@@ -10,14 +10,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Entity.Film;
+import Entity.Hall;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class FilmAdapter extends BaseAdapter {
+public class HallAdapter extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<Film> objects;
+    ArrayList<Hall> objects;
 
-    public FilmAdapter(Context context, ArrayList<Film> products) {
+    public HallAdapter(Context context, ArrayList<Hall> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx
@@ -43,17 +44,17 @@ public class FilmAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(R.layout.film, parent, false);
+            view = lInflater.inflate(R.layout.hall, parent, false);
         }
-        Film p = (Film)getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText(String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textName)).setText(String.valueOf(p.getName()));
-        ((TextView) view.findViewById(R.id.textDescription)).setText(String.valueOf(p.getDescription()));
+        Hall p = (Hall)getProduct(position);
+        ((TextView) view.findViewById(R.id.textIdHall)).setText(String.valueOf(p.getId()));
+        ((TextView) view.findViewById(R.id.textNumber)).setText(String.valueOf(p.getNumber()));
+        ((TextView) view.findViewById(R.id.textSpaciousness)).setText(String.valueOf(p.getSpaciousness()));
 
         return view;
     }
-    public Film getProduct(int position) {
-        return ((Film) getItem(position));
+    public Hall getProduct(int position) {
+        return ((Hall) getItem(position));
     }
 
 }

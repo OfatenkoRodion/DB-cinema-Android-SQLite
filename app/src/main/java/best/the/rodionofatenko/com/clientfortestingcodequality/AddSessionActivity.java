@@ -12,12 +12,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Adapter.FilmAdapter;
+import Adapter.HallAdapter;
 import Entity.Film;
+import Entity.Hall;
 
 public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
 {
-    ArrayList<Film> items = new ArrayList<Film>();
-    FilmAdapter boxAdapter;
+    ArrayList<Film> films = new ArrayList<Film>();
+    ArrayList<Hall> halls = new ArrayList<Hall>();
+    FilmAdapter filmAdapter;
+    HallAdapter hallAdapter;
     Button insertFilm, insertHall, insertSession;
     Button showFilms, showHalls, showSessions;
     DB_Cinema  bd_cinema;
@@ -37,6 +41,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationButtons();
         initializationEditText();
         initializationListViewFilm();
+        initializationListViewHall();
     }
 
     @Override
@@ -46,21 +51,31 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         if(view == insertFilm)
         {
             bd_cinema.addFilm(film_name.getText().toString(),film_description.getText().toString());
-            items.clear();
+            films.clear();
             Cursor cursor= bd_cinema.getWritableDatabase().query("Film",null,null,null,null,null,null);
             if (cursor.moveToFirst()){
                 do  {
                     Film film = new Film(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("description")));
-                    items.add(film);
+                    films.add(film);
                 } while (cursor.moveToNext());
             }
-            //items=(ArrayList<Film>)bd_cinema.getListFilm();
-            boxAdapter.notifyDataSetChanged();
+            //films=(ArrayList<Film>)bd_cinema.getListFilm();
+            filmAdapter.notifyDataSetChanged();
 
         } else
         if(view == insertHall)
         {
             bd_cinema.addHall(Integer.valueOf(hall_number.getText().toString()),Integer.valueOf(hall_spaciousness.getText().toString()));
+            halls.clear();
+            Cursor cursor= bd_cinema.getWritableDatabase().query("Hall",null,null,null,null,null,null);
+            if (cursor.moveToFirst()){
+                do  {
+                    Hall hall = new Hall(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("spaciousness")));
+                    halls.add(hall) ;
+                } while (cursor.moveToNext());
+            }
+
+            hallAdapter.notifyDataSetChanged();
         } else
         if(view == insertSession)
         {
@@ -146,17 +161,28 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void initializationListViewFilm()
     {
-        //items=(ArrayList<Film>)bd_cinema.getListFilm();
+        //films=(ArrayList<Film>)bd_cinema.getListFilm();
 
         Cursor cursor= bd_cinema.getWritableDatabase().query("Film",null,null,null,null,null,null);
         if (cursor.moveToFirst()){
             do  {
                 Film film = new Film(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("description")));
-                items.add(film);
+                films.add(film);
             } while (cursor.moveToNext());
         }
-        boxAdapter = new FilmAdapter(this, items);
+        filmAdapter = new FilmAdapter(this, films);
         ListView lvFilm = (ListView) findViewById(R.id.filmsList);
-        lvFilm.setAdapter(boxAdapter);
+        lvFilm.setAdapter(filmAdapter);
+    }
+    private void initializationListViewHall()
+    {
+        Cursor cursor2= bd_cinema.getWritableDatabase().query("Hall",null,null,null,null,null,null);
+        do  {
+            Hall hall = new Hall(cursor2.getInt(cursor2.getColumnIndex("id")),cursor2.getInt(cursor2.getColumnIndex("number")),cursor2.getInt(cursor2.getColumnIndex("spaciousness")));
+            halls.add(hall) ;
+        } while (cursor2.moveToNext());
+        hallAdapter = new HallAdapter(this,halls);
+        ListView lvFilmH = (ListView) findViewById(R.id.hallsList);
+        lvFilmH.setAdapter(hallAdapter);
     }
 }
