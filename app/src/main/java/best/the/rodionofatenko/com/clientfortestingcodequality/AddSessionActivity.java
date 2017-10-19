@@ -31,22 +31,12 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_session);
-        initializationButtons();
-        initializationEditText();
+
         bd_cinema = new DB_Cinema(this);
 
-        boxAdapter = new FilmAdapter(this, items);
-        ListView lvFilm = (ListView) findViewById(R.id.filmsList);
-        lvFilm.setAdapter(boxAdapter);
-
-
-        Cursor cursor= bd_cinema.getWritableDatabase().query("Film",null,null,null,null,null,null);
-        if (cursor.moveToFirst()){
-            do  {
-                Film film = new Film(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("description")));
-                items.add(film);
-            } while (cursor.moveToNext());
-        }
+        initializationButtons();
+        initializationEditText();
+        initializationListViewFilm();
     }
 
     @Override
@@ -64,7 +54,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
                     items.add(film);
                 } while (cursor.moveToNext());
             }
-
+            //items=(ArrayList<Film>)bd_cinema.getListFilm();
             boxAdapter.notifyDataSetChanged();
 
         } else
@@ -123,7 +113,6 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
         }
     }
-
     private void initializationButtons()
     {
         insertFilm=(Button) findViewById(R.id.insertFilmButton);
@@ -142,7 +131,6 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         showHalls.setOnClickListener(this);
         showSessions.setOnClickListener(this);
     }
-
     private void initializationEditText()
     {
         film_name = (EditText) findViewById(R.id.filmNameEdit);
@@ -155,5 +143,20 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         session_time=(EditText)findViewById(R.id.sessionTimeEdit);
         session_idFilm=(EditText)findViewById(R.id.sessionId_FilmEdit);
         session_IdHall=(EditText)findViewById(R.id.sessionId_HallEdit);
+    }
+    private void initializationListViewFilm()
+    {
+        //items=(ArrayList<Film>)bd_cinema.getListFilm();
+
+        Cursor cursor= bd_cinema.getWritableDatabase().query("Film",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                Film film = new Film(cursor.getInt(cursor.getColumnIndex("id")), cursor.getString(cursor.getColumnIndex("name")), cursor.getString(cursor.getColumnIndex("description")));
+                items.add(film);
+            } while (cursor.moveToNext());
+        }
+        boxAdapter = new FilmAdapter(this, items);
+        ListView lvFilm = (ListView) findViewById(R.id.filmsList);
+        lvFilm.setAdapter(boxAdapter);
     }
 }
