@@ -47,9 +47,9 @@ public class HallAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.hall, parent, false);
         }
         Hall p = (Hall)getProduct(position);
-        ((TextView) view.findViewById(R.id.textIdHall)).setText(String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textNumber)).setText(String.valueOf(p.getNumber()));
-        ((TextView) view.findViewById(R.id.textSpaciousness)).setText(String.valueOf(p.getSpaciousness()));
+        ((TextView) view.findViewById(R.id.textIdHall)).setText("id:"+String.valueOf(p.getId()));
+        ((TextView) view.findViewById(R.id.textNumber)).setText(" №:"+String.valueOf(p.getNumber()));
+        ((TextView) view.findViewById(R.id.textSpaciousness)).setText(" Spac.:"+String.valueOf(p.getSpaciousness()));
 
         return view;
     }

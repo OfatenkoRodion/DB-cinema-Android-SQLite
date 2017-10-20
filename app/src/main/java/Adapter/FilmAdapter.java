@@ -46,9 +46,9 @@ public class FilmAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.film, parent, false);
         }
         Film p = (Film)getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText(String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textName)).setText(String.valueOf(p.getName()));
-        ((TextView) view.findViewById(R.id.textDescription)).setText(String.valueOf(p.getDescription()));
+        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
+        ((TextView) view.findViewById(R.id.textName)).setText(" Name:"+String.valueOf(p.getName()));
+        ((TextView) view.findViewById(R.id.textDescription)).setText(" Des.:"+String.valueOf(p.getDescription()));
 
         return view;
     }

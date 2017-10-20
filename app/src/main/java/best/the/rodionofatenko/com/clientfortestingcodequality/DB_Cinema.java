@@ -54,11 +54,11 @@ public class DB_Cinema extends SQLiteOpenHelper
 
     public void addFilm(final String name,final String description)
     {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        //SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("name",name);
         contentValues.put("description",description);
-        sqLiteDatabase.insert("Film",null,contentValues);
+        this.getWritableDatabase().insert("Film",null,contentValues);
     }
     public void addHall(final int number,final int spaciousness)
     {

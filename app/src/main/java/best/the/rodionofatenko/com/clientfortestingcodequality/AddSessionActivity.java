@@ -67,13 +67,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         {
             bd_cinema.addHall(Integer.valueOf(hall_number.getText().toString()),Integer.valueOf(hall_spaciousness.getText().toString()));
             halls.clear();
-            Cursor cursor= bd_cinema.getWritableDatabase().query("Hall",null,null,null,null,null,null);
-            if (cursor.moveToFirst()){
-                do  {
-                    Hall hall = new Hall(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("spaciousness")));
-                    halls.add(hall) ;
-                } while (cursor.moveToNext());
-            }
+            Cursor cursor2= bd_cinema.getWritableDatabase().query("Hall",null,null,null,null,null,null);
+            if (cursor2.moveToFirst()){
+                do
+                {
+                     Hall hall = new Hall(cursor2.getInt(cursor2.getColumnIndex("id")),cursor2.getInt(cursor2.getColumnIndex("number")),cursor2.getInt(cursor2.getColumnIndex("spaciousness")));
+                     halls.add(hall) ;
+                } while (cursor2.moveToNext());
+           }
 
             hallAdapter.notifyDataSetChanged();
         } else
@@ -176,13 +177,20 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void initializationListViewHall()
     {
-        Cursor cursor2= bd_cinema.getWritableDatabase().query("Hall",null,null,null,null,null,null);
-        do  {
-            Hall hall = new Hall(cursor2.getInt(cursor2.getColumnIndex("id")),cursor2.getInt(cursor2.getColumnIndex("number")),cursor2.getInt(cursor2.getColumnIndex("spaciousness")));
-            halls.add(hall) ;
-        } while (cursor2.moveToNext());
-        hallAdapter = new HallAdapter(this,halls);
-        ListView lvFilmH = (ListView) findViewById(R.id.hallsList);
-        lvFilmH.setAdapter(hallAdapter);
+        try{
+            Cursor cursor= bd_cinema.getWritableDatabase().query("Hall",null,null,null,null,null,null);
+            if (cursor.moveToFirst()){
+                do  {
+                    Hall hall = new Hall(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("spaciousness")));
+                    halls.add(hall) ;
+                }   while (cursor.moveToNext());
+            }
+            hallAdapter = new HallAdapter(this,halls);
+            ListView lvFilmH = (ListView) findViewById(R.id.hallsList);
+            lvFilmH.setAdapter(hallAdapter);
+        }
+        catch (Exception e){
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
     }
 }
