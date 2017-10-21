@@ -1,5 +1,6 @@
 package best.the.rodionofatenko.com.clientfortestingcodequality;
 
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,15 +14,19 @@ import java.util.ArrayList;
 
 import Adapter.FilmAdapter;
 import Adapter.HallAdapter;
+import Adapter.SessionAdapter;
 import Entity.Film;
 import Entity.Hall;
+import Entity.Session;
 
 public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
 {
     ArrayList<Film> films = new ArrayList<Film>();
     ArrayList<Hall> halls = new ArrayList<Hall>();
+    ArrayList<Session> sessions = new ArrayList<Session>();
     FilmAdapter filmAdapter;
     HallAdapter hallAdapter;
+    SessionAdapter sessionAdapter;
     Button insertFilm, insertHall, insertSession;
     Button showFilms, showHalls, showSessions;
     DB_Cinema  bd_cinema;
@@ -35,13 +40,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_session);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         bd_cinema = new DB_Cinema(this);
 
         initializationButtons();
         initializationEditText();
         initializationListViewFilm();
         initializationListViewHall();
+        initializationListViewSession();
     }
 
     @Override
@@ -84,6 +90,15 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
                                 session_time.getText().toString(),
                                 Integer.valueOf(session_IdHall.getText().toString()),
                                 Integer.valueOf(session_idFilm.getText().toString()));
+           sessions.clear();
+            Cursor cursor= bd_cinema.getWritableDatabase().query("Session",null,null,null,null,null,null);
+            if (cursor.moveToFirst()){
+                do  {
+                    Session session = new Session(cursor.getInt(cursor.getColumnIndex("id")),cursor.getString(cursor.getColumnIndex("date")),cursor.getString(cursor.getColumnIndex("time")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_Film")));
+                    sessions.add(session);
+                } while (cursor.moveToNext());
+            }
+            sessionAdapter.notifyDataSetChanged();
         } else
         if(view == showFilms)
         {
@@ -188,6 +203,24 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
             hallAdapter = new HallAdapter(this,halls);
             ListView lvFilmH = (ListView) findViewById(R.id.hallsList);
             lvFilmH.setAdapter(hallAdapter);
+        }
+        catch (Exception e){
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
+    }
+    private void initializationListViewSession()
+    {
+        try{
+            Cursor cursor= bd_cinema.getWritableDatabase().query("Session",null,null,null,null,null,null);
+            if (cursor.moveToFirst()){
+                do  {
+                    Session session = new Session(cursor.getInt(cursor.getColumnIndex("id")),cursor.getString(cursor.getColumnIndex("date")),cursor.getString(cursor.getColumnIndex("time")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_Film")));
+                    sessions.add(session);
+                } while (cursor.moveToNext());
+            }
+            sessionAdapter = new SessionAdapter(this,sessions);
+            ListView lvFilmS = (ListView) findViewById(R.id.sessionList);
+            lvFilmS.setAdapter(sessionAdapter);
         }
         catch (Exception e){
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();

@@ -120,6 +120,11 @@
                 android:layout_height="wrap_content"
                 android:text="Вывод сеансев" />
 
+            <ListView
+                android:id="@+id/sessionList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
 
         <LinearLayout
