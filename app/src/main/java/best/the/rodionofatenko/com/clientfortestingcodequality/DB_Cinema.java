@@ -11,6 +11,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Entity.Film;
+import Entity.Hall;
+import Entity.Session;
 
 public class DB_Cinema extends SQLiteOpenHelper
 {
@@ -88,5 +90,30 @@ public class DB_Cinema extends SQLiteOpenHelper
                 } while (cursor.moveToNext());
             }
             return films;
+    }
+    public ArrayList<Hall> getListHall()
+    {
+        ArrayList<Hall> halls = new ArrayList<Hall>();
+        Cursor cursor= this.getWritableDatabase().query("Hall",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do
+            {
+                Hall hall = new Hall(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("spaciousness")));
+                halls.add(hall) ;
+            } while (cursor.moveToNext());
+        }
+        return  halls;
+    }
+    public ArrayList<Session> getListSession()
+    {
+        ArrayList<Session> sessions = new ArrayList<Session>();
+        Cursor cursor= this.getWritableDatabase().query("Session",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                Session session = new Session(cursor.getInt(cursor.getColumnIndex("id")),cursor.getString(cursor.getColumnIndex("date")),cursor.getString(cursor.getColumnIndex("time")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_Film")));
+                sessions.add(session);
+            } while (cursor.moveToNext());
+        }
+        return sessions;
     }
 }

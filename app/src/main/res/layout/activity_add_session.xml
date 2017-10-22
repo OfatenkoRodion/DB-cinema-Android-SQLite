@@ -45,12 +45,6 @@
                 android:layout_height="wrap_content"
                 android:text="Добавить фильм" />
 
-            <Button
-                android:id="@+id/filmButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Вывод фильмов" />
-
             <ListView
                 android:id="@+id/filmsList"
                 android:layout_width="match_parent"
@@ -114,12 +108,6 @@
                 android:layout_height="wrap_content"
                 android:text="Добавить сеанс" />
 
-            <Button
-                android:id="@+id/sessionButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Вывод сеансев" />
-
             <ListView
                 android:id="@+id/sessionList"
                 android:layout_width="match_parent"
@@ -158,12 +146,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Добавить зал" />
-
-            <Button
-                android:id="@+id/hallButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Вывод залов" />
 
             <ListView
                 android:id="@+id/hallsList"
