@@ -1,12 +1,16 @@
 package best.the.rodionofatenko.com.clientfortestingcodequality;
 
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,14 +43,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_session);
         db_cinema = new DB_Cinema(this);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initializationButtons();
         initializationEditText();
         initializationListViewFilm();
         initializationListViewHall();
         initializationListViewSession();
+        initializationHorizontalScrollView();
     }
-
     @Override
     public void onClick(View view)
     {
@@ -132,7 +136,47 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
         }
     }
+    private void initializationHorizontalScrollView()
+    {
+        final HorizontalScrollView hScroll = (HorizontalScrollView) findViewById(R.id.scrollHorizontal);
+        final ScrollView vScroll = (ScrollView)findViewById(R.id.scrollVertical);
+        vScroll.setOnTouchListener(new View.OnTouchListener() { //inner scroll listener
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
+        hScroll.setOnTouchListener(new View.OnTouchListener() { //outer scroll listener
+            private float mx, my, curX, curY;
+            private boolean started = false;
 
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                curX = event.getX();
+                curY = event.getY();
+                int dx = (int) (mx - curX);
+                int dy = (int) (my - curY);
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_MOVE:
+                        if (started) {
+                            vScroll.scrollBy(0, dy);
+                            hScroll.scrollBy(dx, 0);
+                        } else {
+                            started = true;
+                        }
+                        mx = curX;
+                        my = curY;
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        vScroll.scrollBy(0, dy);
+                        hScroll.scrollBy(dx, 0);
+                        started = false;
+                        break;
+                }
+                return true;
+            }
+        });
+    }
     private void insertFilmOnClickActions()
     {
         db_cinema.addFilm(film_name.getText().toString(),film_description.getText().toString());
@@ -157,5 +201,4 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         sessions.addAll(0, db_cinema.getListSession());
         sessionAdapter.notifyDataSetChanged();
     }
-
 }
