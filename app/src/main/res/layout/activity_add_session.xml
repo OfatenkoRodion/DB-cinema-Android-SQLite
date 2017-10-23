@@ -6,12 +6,12 @@
     <ScrollView
         android:id="@+id/scrollVertical"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,7 +32,9 @@
                     <EditText
                         android:id="@+id/filmNameEdit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -55,7 +57,7 @@
                     <ListView
                         android:id="@+id/filmsList"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -75,7 +77,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:inputType="date" />
+                        android:inputType="date"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -97,7 +99,9 @@
                     <EditText
                         android:id="@+id/sessionId_HallEdit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -107,7 +111,9 @@
                     <EditText
                         android:id="@+id/sessionId_FilmEdit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
 
                     <Button
                         android:id="@+id/insertSessionButton"
@@ -118,7 +124,7 @@
                     <ListView
                         android:id="@+id/sessionList"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
@@ -136,7 +142,9 @@
                     <EditText
                         android:id="@+id/hallNomberEdit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -146,7 +154,9 @@
                     <EditText
                         android:id="@+id/hallSpaciousnessEdit"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
 
                     <Button
                         android:id="@+id/insertHallButton"
@@ -157,12 +167,12 @@
                     <ListView
                         android:id="@+id/hallsList"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </FrameLayout>
     </ScrollView>
 </HorizontalScrollView>
