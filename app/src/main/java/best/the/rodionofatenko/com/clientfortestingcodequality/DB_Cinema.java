@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import Entity.Film;
 import Entity.Hall;
+import Entity.PlaceCategory;
 import Entity.Session;
 
 public class DB_Cinema extends SQLiteOpenHelper
@@ -80,6 +81,13 @@ public class DB_Cinema extends SQLiteOpenHelper
         contentValues.put("id_Film",id_Film);
         sqLiteDatabase.insert("Session",null,contentValues);
     }
+    public void addPlaceCategory(final String name)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name",name);
+        sqLiteDatabase.insert("PlaceCategory",null,contentValues);
+    }
     public ArrayList<Film> getListFilm() {
         ArrayList<Film> films = new ArrayList<Film>();
             Cursor cursor = this.getWritableDatabase().query("Film", null, null, null, null, null, null);
@@ -115,5 +123,18 @@ public class DB_Cinema extends SQLiteOpenHelper
             } while (cursor.moveToNext());
         }
         return sessions;
+    }
+    public ArrayList<PlaceCategory> getListPlaceCategory()
+    {
+            ArrayList<PlaceCategory> placeCategorys = new ArrayList<PlaceCategory>();
+            /*Cursor cursor= this.getWritableDatabase().query("PlaceCategory",null,null,null,null,null,null);
+            if (cursor.moveToFirst()){
+                do  {
+                    PlaceCategory placeCategory = new PlaceCategory(cursor.getInt(cursor.getColumnIndex("id")),cursor.getString(cursor.getColumnIndex("name")));
+                    placeCategorys.add(placeCategory);
+                } while (cursor.moveToNext());
+            }*/
+            return placeCategorys;
+
     }
 }

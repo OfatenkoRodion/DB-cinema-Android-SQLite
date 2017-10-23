@@ -60,7 +60,6 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -127,7 +126,6 @@
                         android:layout_height="wrap_content" />
 
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -166,6 +164,34 @@
 
                     <ListView
                         android:id="@+id/hallsList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Категория мест" />
+
+                    <EditText
+                        android:id="@+id/placeCategoryNameEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
+                    <Button
+                        android:id="@+id/insertPlaceCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Добавить категорию" />
+                    <ListView
+                        android:id="@+id/placeCategoryList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

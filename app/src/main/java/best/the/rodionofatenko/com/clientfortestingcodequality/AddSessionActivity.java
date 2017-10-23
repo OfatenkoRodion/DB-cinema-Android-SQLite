@@ -17,9 +17,11 @@ import java.util.ArrayList;
 
 import Adapter.FilmAdapter;
 import Adapter.HallAdapter;
+import Adapter.PlaceCategoryAdapter;
 import Adapter.SessionAdapter;
 import Entity.Film;
 import Entity.Hall;
+import Entity.PlaceCategory;
 import Entity.Session;
 
 public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
@@ -27,15 +29,18 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     ArrayList<Film> films = new ArrayList<Film>();
     ArrayList<Hall> halls = new ArrayList<Hall>();
     ArrayList<Session> sessions = new ArrayList<Session>();
+    ArrayList<PlaceCategory> placeCategorys = new ArrayList<PlaceCategory>();
     FilmAdapter filmAdapter;
     HallAdapter hallAdapter;
     SessionAdapter sessionAdapter;
-    Button insertFilm, insertHall, insertSession;
+    PlaceCategoryAdapter placeCategoryAdapter;
+    Button insertFilm, insertHall, insertSession,insertPlaceCategory;
     DB_Cinema db_cinema;
 
     EditText film_name, film_description;
     EditText hall_number, hall_spaciousness;
     EditText session_date, session_time, session_idFilm, session_IdHall;
+    EditText placeCategory_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +54,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationListViewFilm();
         initializationListViewHall();
         initializationListViewSession();
+        initializationListViewPlaceCategory();
         initializationHorizontalScrollView();
     }
     @Override
@@ -68,16 +74,24 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         {
             insertSessionOnClickActions();
         }
+        else
+        if(view == insertPlaceCategory)
+        {
+            insertPlaceCategoryOnClickActions();
+        }
+
     }
     private void initializationButtons()
     {
         insertFilm=(Button) findViewById(R.id.insertFilmButton);
         insertHall=(Button) findViewById(R.id.insertHallButton);
         insertSession=(Button) findViewById(R.id.insertSessionButton);
+        insertPlaceCategory=(Button) findViewById(R.id.insertPlaceCategory);
 
         insertFilm.setOnClickListener(this);
         insertHall.setOnClickListener(this);
         insertSession.setOnClickListener(this);
+        insertPlaceCategory.setOnClickListener(this);
     }
     private void initializationEditText()
     {
@@ -91,6 +105,8 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         session_time=(EditText)findViewById(R.id.sessionTimeEdit);
         session_idFilm=(EditText)findViewById(R.id.sessionId_FilmEdit);
         session_IdHall=(EditText)findViewById(R.id.sessionId_HallEdit);
+
+        placeCategory_name=(EditText)findViewById(R.id.placeCategoryNameEdit);
     }
     private void initializationListViewFilm()
     {
@@ -135,6 +151,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         catch (Exception e){
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
         }
+    }
+    private void initializationListViewPlaceCategory()
+    {
+        placeCategorys.clear();
+        placeCategorys.addAll(0, db_cinema.getListPlaceCategory());
+        placeCategoryAdapter = new PlaceCategoryAdapter(this, placeCategorys);
+        ListView lvPlaceCategory = (ListView) findViewById(R.id.placeCategoryList);
+        lvPlaceCategory .setAdapter(placeCategoryAdapter);
     }
     private void initializationHorizontalScrollView()
     {
@@ -200,5 +224,12 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         sessions.clear();
         sessions.addAll(0, db_cinema.getListSession());
         sessionAdapter.notifyDataSetChanged();
+    }
+    private void insertPlaceCategoryOnClickActions()
+    {
+        db_cinema.addPlaceCategory(placeCategory_name.getText().toString());
+        placeCategorys.clear();
+        placeCategorys.addAll(0, db_cinema.getListPlaceCategory());
+        placeCategoryAdapter.notifyDataSetChanged();
     }
 }
