@@ -18,10 +18,12 @@ import java.util.ArrayList;
 import Adapter.FilmAdapter;
 import Adapter.HallAdapter;
 import Adapter.PlaceCategoryAdapter;
+import Adapter.PriceCategoryAdapter;
 import Adapter.SessionAdapter;
 import Entity.Film;
 import Entity.Hall;
 import Entity.PlaceCategory;
+import Entity.PriceCategory;
 import Entity.Session;
 
 public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
@@ -30,17 +32,20 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     ArrayList<Hall> halls = new ArrayList<Hall>();
     ArrayList<Session> sessions = new ArrayList<Session>();
     ArrayList<PlaceCategory> placeCategorys = new ArrayList<PlaceCategory>();
+    ArrayList<PriceCategory> priceCategorys = new ArrayList<PriceCategory>();
     FilmAdapter filmAdapter;
     HallAdapter hallAdapter;
     SessionAdapter sessionAdapter;
     PlaceCategoryAdapter placeCategoryAdapter;
-    Button insertFilm, insertHall, insertSession,insertPlaceCategory;
+    PriceCategoryAdapter priceCategoryAdapter;
+    Button insertFilm, insertHall, insertSession,insertPlaceCategory,insertPriceCategory;
     DB_Cinema db_cinema;
 
     EditText film_name, film_description;
     EditText hall_number, hall_spaciousness;
     EditText session_date, session_time, session_idFilm, session_IdHall;
     EditText placeCategory_name;
+    EditText priceCategory_Id_session,priceCategory_Id_PlaceCategory,priceCategory_Price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -55,6 +60,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationListViewHall();
         initializationListViewSession();
         initializationListViewPlaceCategory();
+        initializationListViewPriceCategory();
         initializationHorizontalScrollView();
     }
     @Override
@@ -79,19 +85,25 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         {
             insertPlaceCategoryOnClickActions();
         }
-
+        else
+        if (view == insertPriceCategory)
+        {
+            insertPriceCategoryOnClickActions();
+        }
     }
     private void initializationButtons()
     {
         insertFilm=(Button) findViewById(R.id.insertFilmButton);
         insertHall=(Button) findViewById(R.id.insertHallButton);
         insertSession=(Button) findViewById(R.id.insertSessionButton);
-        insertPlaceCategory=(Button) findViewById(R.id.insertPlaceCategory);
+        insertPlaceCategory=(Button) findViewById(R.id.insertPlaceCategoryButton);
+        insertPriceCategory=(Button) findViewById(R.id.insertPriceCategoryButton);
 
         insertFilm.setOnClickListener(this);
         insertHall.setOnClickListener(this);
         insertSession.setOnClickListener(this);
         insertPlaceCategory.setOnClickListener(this);
+        insertPriceCategory.setOnClickListener(this);
     }
     private void initializationEditText()
     {
@@ -107,6 +119,10 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         session_IdHall=(EditText)findViewById(R.id.sessionId_HallEdit);
 
         placeCategory_name=(EditText)findViewById(R.id.placeCategoryNameEdit);
+
+        priceCategory_Id_PlaceCategory=(EditText)findViewById(R.id.priceCategoryId_PlaceCategoryEdit);
+        priceCategory_Id_session=(EditText)findViewById(R.id.priceCategoryId_sessionEdit);
+        priceCategory_Price=(EditText)findViewById(R.id. priceCategory_PriceEdit);
     }
     private void initializationListViewFilm()
     {
@@ -118,39 +134,20 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void initializationListViewHall()
     {
-        try{
-            Cursor cursor= db_cinema.getWritableDatabase().query("Hall",null,null,null,null,null,null);
-            if (cursor.moveToFirst()){
-                do  {
-                    Hall hall = new Hall(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("spaciousness")));
-                    halls.add(hall) ;
-                }   while (cursor.moveToNext());
-            }
-            hallAdapter = new HallAdapter(this,halls);
-            ListView lvHall = (ListView) findViewById(R.id.hallsList);
-            lvHall.setAdapter(hallAdapter);
-        }
-        catch (Exception e){
-            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
-        }
+        halls.clear();
+        halls.addAll(0,db_cinema.getListHall());
+        hallAdapter = new HallAdapter(this,halls);
+        ListView lvHall = (ListView) findViewById(R.id.hallsList);
+        lvHall.setAdapter(hallAdapter);
     }
     private void initializationListViewSession()
     {
-        try{
-            Cursor cursor= db_cinema.getWritableDatabase().query("Session",null,null,null,null,null,null);
-            if (cursor.moveToFirst()){
-                do  {
-                    Session session = new Session(cursor.getInt(cursor.getColumnIndex("id")),cursor.getString(cursor.getColumnIndex("date")),cursor.getString(cursor.getColumnIndex("time")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_Film")));
-                    sessions.add(session);
-                } while (cursor.moveToNext());
-            }
-            sessionAdapter = new SessionAdapter(this,sessions);
-            ListView lvSession = (ListView) findViewById(R.id.sessionList);
-            lvSession.setAdapter(sessionAdapter);
-        }
-        catch (Exception e){
-            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
-        }
+        sessions.clear();
+        sessions.addAll(0,db_cinema.getListSession());
+        sessionAdapter = new SessionAdapter(this,sessions);
+        ListView lvSession = (ListView) findViewById(R.id.sessionList);
+        lvSession.setAdapter(sessionAdapter);
+
     }
     private void initializationListViewPlaceCategory()
     {
@@ -159,6 +156,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         placeCategoryAdapter = new PlaceCategoryAdapter(this, placeCategorys);
         ListView lvPlaceCategory = (ListView) findViewById(R.id.placeCategoryList);
         lvPlaceCategory .setAdapter(placeCategoryAdapter);
+    }
+    private void initializationListViewPriceCategory()
+    {
+       /* priceCategorys.clear();
+        priceCategorys.addAll(0, db_cinema.getListPriceCategory());
+        priceCategoryAdapter = new PriceCategoryAdapter(this, priceCategorys);
+        ListView lvPriceCategory = (ListView) findViewById(R.id.priceCategoryList);
+        lvPriceCategory .setAdapter(priceCategoryAdapter);*/
     }
     private void initializationHorizontalScrollView()
     {
@@ -231,5 +236,20 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         placeCategorys.clear();
         placeCategorys.addAll(0, db_cinema.getListPlaceCategory());
         placeCategoryAdapter.notifyDataSetChanged();
+    }
+    private void insertPriceCategoryOnClickActions()
+    {
+       /* db_cinema.addPriceCategory(Integer.valueOf(priceCategory_Id_PlaceCategory.getText().toString()),Integer.valueOf(priceCategory_Id_session.getText().toString()),Integer.valueOf(priceCategory_Price.getText().toString()));
+        priceCategorys.clear();
+        priceCategorys.addAll(0, db_cinema.getListPriceCategory());
+        priceCategoryAdapter.notifyDataSetChanged();*/
+       try{
+           db_cinema.addPriceCategory(Integer.valueOf(priceCategory_Id_PlaceCategory.getText().toString()),Integer.valueOf(priceCategory_Id_session.getText().toString()),Integer.valueOf(priceCategory_Price.getText().toString()));
+       Toast.makeText(this,db_cinema.getListPriceCategory().size(),Toast.LENGTH_LONG).show();}
+       catch (Exception e)
+       {
+           Toast.makeText(this,"Ошибка:"+e.toString(),Toast.LENGTH_LONG).show();
+          // Toast.makeText(this,"Ошибка1",Toast.LENGTH_LONG);
+       }
     }
 }

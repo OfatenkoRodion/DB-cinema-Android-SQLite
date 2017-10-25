@@ -185,13 +185,63 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textMultiLine"/>
+
                     <Button
-                        android:id="@+id/insertPlaceCategory"
+                        android:id="@+id/insertPlaceCategoryButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Добавить категорию" />
+
                     <ListView
                         android:id="@+id/placeCategoryList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="id категории мест" />
+
+                    <EditText
+                        android:id="@+id/priceCategoryId_PlaceCategoryEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="id Сеанса" />
+
+                    <EditText
+                        android:id="@+id/priceCategoryId_sessionEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Цена за билет" />
+
+                    <EditText
+                        android:id="@+id/priceCategory_PriceEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/insertPriceCategoryButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Добавить категорию \r\n и цену на фильм" />
+
+                    <ListView
+                        android:id="@+id/priceCategoryList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
