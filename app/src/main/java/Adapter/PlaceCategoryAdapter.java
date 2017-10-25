@@ -46,14 +46,14 @@ public class PlaceCategoryAdapter extends BaseAdapter {
         if (view == null) {
             view = lInflater.inflate(R.layout.place_category, parent, false);
         }
-        Film p = (Film)getProduct(position);
+        PlaceCategory p = getProduct(position);
         ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
         ((TextView) view.findViewById(R.id.textName)).setText(" Name:"+String.valueOf(p.getName()));
 
         return view;
     }
-    public Film getProduct(int position) {
-        return ((Film) getItem(position));
+    public PlaceCategory getProduct(int position) {
+        return  (PlaceCategory)getItem(position);
     }
 
 }

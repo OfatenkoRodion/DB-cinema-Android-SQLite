@@ -127,13 +127,13 @@ public class DB_Cinema extends SQLiteOpenHelper
     public ArrayList<PlaceCategory> getListPlaceCategory()
     {
             ArrayList<PlaceCategory> placeCategorys = new ArrayList<PlaceCategory>();
-            /*Cursor cursor= this.getWritableDatabase().query("PlaceCategory",null,null,null,null,null,null);
+            Cursor cursor= this.getWritableDatabase().query("PlaceCategory",null,null,null,null,null,null);
             if (cursor.moveToFirst()){
                 do  {
                     PlaceCategory placeCategory = new PlaceCategory(cursor.getInt(cursor.getColumnIndex("id")),cursor.getString(cursor.getColumnIndex("name")));
                     placeCategorys.add(placeCategory);
                 } while (cursor.moveToNext());
-            }*/
+            }
             return placeCategorys;
 
     }
