@@ -12,7 +12,7 @@ public class PriceCategory
     }
 
     public PriceCategory(int id, int id_PlaceCategory, int id_session, int price)
-    {
+    {   this.id = new LazyImmutableInt();
         this.id.setValue(id);
         this.id_PlaceCategory = id_PlaceCategory;
         this.id_session = id_session;

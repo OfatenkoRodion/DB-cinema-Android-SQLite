@@ -1,7 +1,5 @@
 package best.the.rodionofatenko.com.clientfortestingcodequality;
 
-import android.content.pm.ActivityInfo;
-import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -11,7 +9,6 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -53,7 +50,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_session);
         db_cinema = new DB_Cinema(this);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initializationButtons();
         initializationEditText();
         initializationListViewFilm();
@@ -159,11 +156,11 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void initializationListViewPriceCategory()
     {
-       /* priceCategorys.clear();
+        priceCategorys.clear();
         priceCategorys.addAll(0, db_cinema.getListPriceCategory());
         priceCategoryAdapter = new PriceCategoryAdapter(this, priceCategorys);
         ListView lvPriceCategory = (ListView) findViewById(R.id.priceCategoryList);
-        lvPriceCategory .setAdapter(priceCategoryAdapter);*/
+        lvPriceCategory .setAdapter(priceCategoryAdapter);
     }
     private void initializationHorizontalScrollView()
     {
@@ -239,17 +236,9 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void insertPriceCategoryOnClickActions()
     {
-       /* db_cinema.addPriceCategory(Integer.valueOf(priceCategory_Id_PlaceCategory.getText().toString()),Integer.valueOf(priceCategory_Id_session.getText().toString()),Integer.valueOf(priceCategory_Price.getText().toString()));
+        db_cinema.addPriceCategory(Integer.valueOf(priceCategory_Id_PlaceCategory.getText().toString()),Integer.valueOf(priceCategory_Id_session.getText().toString()),Integer.valueOf(priceCategory_Price.getText().toString()));
         priceCategorys.clear();
         priceCategorys.addAll(0, db_cinema.getListPriceCategory());
-        priceCategoryAdapter.notifyDataSetChanged();*/
-       try{
-           db_cinema.addPriceCategory(Integer.valueOf(priceCategory_Id_PlaceCategory.getText().toString()),Integer.valueOf(priceCategory_Id_session.getText().toString()),Integer.valueOf(priceCategory_Price.getText().toString()));
-       Toast.makeText(this,db_cinema.getListPriceCategory().size(),Toast.LENGTH_LONG).show();}
-       catch (Exception e)
-       {
-           Toast.makeText(this,"Ошибка:"+e.toString(),Toast.LENGTH_LONG).show();
-          // Toast.makeText(this,"Ошибка1",Toast.LENGTH_LONG);
-       }
+        priceCategoryAdapter.notifyDataSetChanged();
     }
 }

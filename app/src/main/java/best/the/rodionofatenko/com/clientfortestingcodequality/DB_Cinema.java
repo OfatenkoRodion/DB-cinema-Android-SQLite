@@ -149,13 +149,13 @@ public class DB_Cinema extends SQLiteOpenHelper
     public ArrayList<PriceCategory> getListPriceCategory()
     {
         ArrayList<PriceCategory> priceCategorys = new ArrayList<PriceCategory>();
-       /* Cursor cursor= this.getWritableDatabase().query("PriceCategory",null,null,null,null,null,null);
+        Cursor cursor= this.getWritableDatabase().query("PriceCategory",null,null,null,null,null,null);
         if (cursor.moveToFirst()){
             do  {
                 PriceCategory priceCategory = new PriceCategory(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("id_PlaceCategory")),cursor.getInt(cursor.getColumnIndex("id_session")),cursor.getInt(cursor.getColumnIndex("price")));
                 priceCategorys.add(priceCategory);
             } while (cursor.moveToNext());
-        }*/
+        }
         return priceCategorys;
 
     }
