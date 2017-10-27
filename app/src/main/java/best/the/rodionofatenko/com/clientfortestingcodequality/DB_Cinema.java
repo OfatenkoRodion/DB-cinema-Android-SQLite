@@ -40,6 +40,17 @@ public class DB_Cinema extends SQLiteOpenHelper
                 " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
                 " FOREIGN KEY(id_session) REFERENCES Session(id)," +
                 " UNIQUE (id_PlaceCategory,price));");
+        sqLiteDatabase.execSQL("CREATE table Row(id integer PRIMARY KEY autoincrement,number integer NOT NULL, id_Hall integer NOT NULL, id_PlaceCategory integer NOT NULL, count integer NOT NULL" +
+                " FOREIGN KEY(id_Hall) REFERENCES Hall(id)," +
+                " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
+                " UNIQUE (id_Hall,id_PlaceCategory));");
+        sqLiteDatabase.execSQL("CREATE table Place(id integer PRIMARY KEY autoincrement,id_Row integer NOT NULL, number integer NOT NULL," +
+                " FOREIGN KEY(id_Raw) REFERENCES Raw(id)," +
+                " UNIQUE(id_Raw,number);");
+        sqLiteDatabase.execSQL("CREATE table Ticket(id integer PRIMARY KEY autoincrement, id_Session integer NOT NULL, id_Place integer NOT NULL, status text NOT NULL," +
+                " FOREIGN KEY(id_Session) REFERENCES Session(id))," +
+                " FOREIGN KEY(id_Place) REFERENCES Place(id)," +
+                " UNIQUE(id_Session, id_Raw));");
     }
 
     @Override
