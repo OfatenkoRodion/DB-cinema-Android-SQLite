@@ -14,6 +14,7 @@ import Entity.Film;
 import Entity.Hall;
 import Entity.PlaceCategory;
 import Entity.PriceCategory;
+import Entity.Row;
 import Entity.Session;
 
 public class DB_Cinema extends SQLiteOpenHelper
@@ -40,17 +41,17 @@ public class DB_Cinema extends SQLiteOpenHelper
                 " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
                 " FOREIGN KEY(id_session) REFERENCES Session(id)," +
                 " UNIQUE (id_PlaceCategory,price));");
-        sqLiteDatabase.execSQL("CREATE table Row(id integer PRIMARY KEY autoincrement,number integer NOT NULL, id_Hall integer NOT NULL, id_PlaceCategory integer NOT NULL, count integer NOT NULL" +
+        sqLiteDatabase.execSQL("CREATE table Row(id integer PRIMARY KEY autoincrement,number integer NOT NULL, id_Hall integer NOT NULL, id_PlaceCategory integer NOT NULL, count integer NOT NULL," +
                 " FOREIGN KEY(id_Hall) REFERENCES Hall(id)," +
                 " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
                 " UNIQUE (id_Hall,id_PlaceCategory));");
         sqLiteDatabase.execSQL("CREATE table Place(id integer PRIMARY KEY autoincrement,id_Row integer NOT NULL, number integer NOT NULL," +
-                " FOREIGN KEY(id_Raw) REFERENCES Raw(id)," +
-                " UNIQUE(id_Raw,number);");
+                " FOREIGN KEY(id_Row) REFERENCES Row(id)," +
+                " UNIQUE(id_Row,number));");
         sqLiteDatabase.execSQL("CREATE table Ticket(id integer PRIMARY KEY autoincrement, id_Session integer NOT NULL, id_Place integer NOT NULL, status text NOT NULL," +
-                " FOREIGN KEY(id_Session) REFERENCES Session(id))," +
+                " FOREIGN KEY(id_Session) REFERENCES Session(id)," +
                 " FOREIGN KEY(id_Place) REFERENCES Place(id)," +
-                " UNIQUE(id_Session, id_Raw));");
+                " UNIQUE(id_Session, id_Place));");
     }
 
     @Override
@@ -106,6 +107,16 @@ public class DB_Cinema extends SQLiteOpenHelper
         contentValues.put("id_session",id_session);
         contentValues.put("price",price);
         sqLiteDatabase.insert("PriceCategory",null,contentValues);
+    }
+    public void addRow(final int number,final int id_Hall,final int id_PlaceCategory,final int count)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("number",number);
+        contentValues.put("id_Hall",id_Hall);
+        contentValues.put("id_PlaceCategory",id_PlaceCategory);
+        contentValues.put("count",count);
+        sqLiteDatabase.insert("Row",null,contentValues);
     }
     public ArrayList<Film> getListFilm()
     {
@@ -169,5 +180,17 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return priceCategorys;
 
+    }
+    public ArrayList<Row> getListRow()
+    {
+        ArrayList<Row> rows = new ArrayList<Row>();
+        Cursor cursor= this.getWritableDatabase().query("Row",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                Row row = new Row(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_PlaceCategory")),cursor.getInt(cursor.getColumnIndex("count")));
+                rows.add(row);
+            } while (cursor.moveToNext());
+        }
+        return rows;
     }
 }

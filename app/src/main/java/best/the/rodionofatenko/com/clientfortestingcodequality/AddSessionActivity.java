@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,11 +17,13 @@ import Adapter.FilmAdapter;
 import Adapter.HallAdapter;
 import Adapter.PlaceCategoryAdapter;
 import Adapter.PriceCategoryAdapter;
+import Adapter.RowAdapter;
 import Adapter.SessionAdapter;
 import Entity.Film;
 import Entity.Hall;
 import Entity.PlaceCategory;
 import Entity.PriceCategory;
+import Entity.Row;
 import Entity.Session;
 
 public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
@@ -30,12 +33,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     ArrayList<Session> sessions = new ArrayList<Session>();
     ArrayList<PlaceCategory> placeCategorys = new ArrayList<PlaceCategory>();
     ArrayList<PriceCategory> priceCategorys = new ArrayList<PriceCategory>();
+    ArrayList<Row> rows = new ArrayList<Row>();
     FilmAdapter filmAdapter;
     HallAdapter hallAdapter;
     SessionAdapter sessionAdapter;
     PlaceCategoryAdapter placeCategoryAdapter;
     PriceCategoryAdapter priceCategoryAdapter;
-    Button insertFilm, insertHall, insertSession,insertPlaceCategory,insertPriceCategory;
+    RowAdapter rowAdapter;
+    Button insertFilm, insertHall, insertSession,insertPlaceCategory,insertPriceCategory,insertRow;
     DB_Cinema db_cinema;
 
     EditText film_name, film_description;
@@ -43,6 +48,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     EditText session_date, session_time, session_idFilm, session_IdHall;
     EditText placeCategory_name;
     EditText priceCategory_Id_session,priceCategory_Id_PlaceCategory,priceCategory_Price;
+    EditText row_Number,row_Id_Hall,row_Id_PlaceCategory, row_Сount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,6 +64,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationListViewSession();
         initializationListViewPlaceCategory();
         initializationListViewPriceCategory();
+        initializationListViewRow();
         initializationHorizontalScrollView();
     }
     @Override
@@ -87,6 +94,11 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         {
             insertPriceCategoryOnClickActions();
         }
+        else
+        if (view == insertRow)
+        {
+            insertRowOnClickActions();
+        }
     }
     private void initializationButtons()
     {
@@ -95,12 +107,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         insertSession=(Button) findViewById(R.id.insertSessionButton);
         insertPlaceCategory=(Button) findViewById(R.id.insertPlaceCategoryButton);
         insertPriceCategory=(Button) findViewById(R.id.insertPriceCategoryButton);
+        insertRow=(Button) findViewById(R.id.insertRowButton);
 
         insertFilm.setOnClickListener(this);
         insertHall.setOnClickListener(this);
         insertSession.setOnClickListener(this);
         insertPlaceCategory.setOnClickListener(this);
         insertPriceCategory.setOnClickListener(this);
+        insertRow.setOnClickListener(this);
     }
     private void initializationEditText()
     {
@@ -120,6 +134,11 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         priceCategory_Id_PlaceCategory=(EditText)findViewById(R.id.priceCategoryId_PlaceCategoryEdit);
         priceCategory_Id_session=(EditText)findViewById(R.id.priceCategoryId_sessionEdit);
         priceCategory_Price=(EditText)findViewById(R.id. priceCategory_PriceEdit);
+
+        row_Number=(EditText)findViewById(R.id.rowNumberEdit);
+        row_Id_Hall=(EditText)findViewById(R.id.rowId_HallEdit);
+        row_Id_PlaceCategory=(EditText)findViewById(R.id.rowId_PlaceCategoryEdit);
+        row_Сount=(EditText)findViewById(R.id.rowСountEdit);
     }
     private void initializationListViewFilm()
     {
@@ -161,6 +180,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         priceCategoryAdapter = new PriceCategoryAdapter(this, priceCategorys);
         ListView lvPriceCategory = (ListView) findViewById(R.id.priceCategoryList);
         lvPriceCategory .setAdapter(priceCategoryAdapter);
+    }
+    private void initializationListViewRow()
+    {
+        rows.clear();
+        rows.addAll(0, db_cinema.getListRow());
+        rowAdapter = new RowAdapter(this, rows);
+        ListView lvRow = (ListView) findViewById(R.id.rowList);
+        lvRow.setAdapter(rowAdapter);
     }
     private void initializationHorizontalScrollView()
     {
@@ -240,5 +267,12 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         priceCategorys.clear();
         priceCategorys.addAll(0, db_cinema.getListPriceCategory());
         priceCategoryAdapter.notifyDataSetChanged();
+    }
+    private void insertRowOnClickActions()
+    {
+        db_cinema.addRow(Integer.valueOf(row_Number.getText().toString()),Integer.valueOf(row_Id_Hall.getText().toString()),Integer.valueOf(row_Id_PlaceCategory.getText().toString()),Integer.valueOf(row_Сount.getText().toString()));
+        rows.clear();
+        rows.addAll(0, db_cinema.getListRow());
+        rowAdapter.notifyDataSetChanged();
     }
 }
