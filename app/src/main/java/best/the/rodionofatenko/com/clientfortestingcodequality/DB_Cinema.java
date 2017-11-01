@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import Entity.Film;
 import Entity.Hall;
+import Entity.Place;
 import Entity.PlaceCategory;
 import Entity.PriceCategory;
 import Entity.Row;
@@ -118,6 +119,14 @@ public class DB_Cinema extends SQLiteOpenHelper
         contentValues.put("count",count);
         sqLiteDatabase.insert("Row",null,contentValues);
     }
+    public void addPlace(final int number,final int id_Row)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id_Row",id_Row);
+        contentValues.put("number",number);
+        sqLiteDatabase.insert("Place",null,contentValues);
+    }
     public ArrayList<Film> getListFilm()
     {
         ArrayList<Film> films = new ArrayList<Film>();
@@ -192,5 +201,17 @@ public class DB_Cinema extends SQLiteOpenHelper
             } while (cursor.moveToNext());
         }
         return rows;
+    }
+    public ArrayList<Place> getListPlace()
+    {
+        ArrayList<Place> places = new ArrayList<Place>();
+        Cursor cursor= this.getWritableDatabase().query("Place",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                Place place = new Place(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("id_Row")));
+                places.add(place);
+            } while (cursor.moveToNext());
+        }
+        return places;
     }
 }
