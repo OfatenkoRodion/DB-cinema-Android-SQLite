@@ -310,7 +310,7 @@
                         android:id="@+id/insertRowButton"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Добавить категорию \r\n и цену на фильм" />
+                        android:text="Добавить Ряд" />
 
                     <ListView
                         android:id="@+id/rowList"
@@ -356,6 +356,60 @@
 
                     <ListView
                         android:id="@+id/placeList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="id Сеанса" />
+
+                    <EditText
+                        android:id="@+id/ticketId_SessionEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="id места" />
+
+                    <EditText
+                        android:id="@+id/ticketId_PlaceEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Статус" />
+
+                    <EditText
+                        android:id="@+id/ticketStatusEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"/>
+
+                    <Button
+                        android:id="@+id/insertTicketButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Добавить Билет" />
+
+                    <ListView
+                        android:id="@+id/ticketList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 

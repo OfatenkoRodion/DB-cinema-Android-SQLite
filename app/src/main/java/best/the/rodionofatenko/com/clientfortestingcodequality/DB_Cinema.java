@@ -17,6 +17,7 @@ import Entity.PlaceCategory;
 import Entity.PriceCategory;
 import Entity.Row;
 import Entity.Session;
+import Entity.Ticket;
 
 public class DB_Cinema extends SQLiteOpenHelper
 {
@@ -127,6 +128,15 @@ public class DB_Cinema extends SQLiteOpenHelper
         contentValues.put("number",number);
         sqLiteDatabase.insert("Place",null,contentValues);
     }
+    public void addTicket(final int id_Session,final int id_Place,final String status)
+    {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id_Session",id_Session);
+        contentValues.put("id_Place",id_Place);
+        contentValues.put("status",status);
+        sqLiteDatabase.insert("Ticket",null,contentValues);
+    }
     public ArrayList<Film> getListFilm()
     {
         ArrayList<Film> films = new ArrayList<Film>();
@@ -213,5 +223,17 @@ public class DB_Cinema extends SQLiteOpenHelper
             } while (cursor.moveToNext());
         }
         return places;
+    }
+    public ArrayList<Ticket> getListTicket()
+    {
+        ArrayList<Ticket> tickets = new ArrayList<Ticket>();
+        Cursor cursor= this.getWritableDatabase().query("Ticket",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                Ticket ticket = new Ticket(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("id_Session")),cursor.getInt(cursor.getColumnIndex("id_Place")),cursor.getString(cursor.getColumnIndex("status")));
+                tickets.add(ticket);
+            } while (cursor.moveToNext());
+        }
+        return tickets;
     }
 }
