@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import Entity.Session;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class SessionAdapter extends BaseAdapter {
+public class SessionAdapter extends BaseAdapter  {
     Context ctx;
     LayoutInflater lInflater;
     ArrayList<Session> objects;

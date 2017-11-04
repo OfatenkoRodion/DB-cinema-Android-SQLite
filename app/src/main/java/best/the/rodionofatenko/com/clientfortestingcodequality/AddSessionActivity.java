@@ -1,15 +1,16 @@
 package best.the.rodionofatenko.com.clientfortestingcodequality;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
-import android.widget.Toast;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -30,8 +31,7 @@ import Entity.Row;
 import Entity.Session;
 import Entity.Ticket;
 
-public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener {
     ArrayList<Film> films = new ArrayList<Film>();
     ArrayList<Hall> halls = new ArrayList<Hall>();
     ArrayList<Session> sessions = new ArrayList<Session>();
@@ -80,6 +80,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationListViewRow();
         initializationListViewPlace();
         initializationListViewTicket();
+        initializationSessionsSpinner();
         initializationHorizontalScrollView();
     }
     @Override
@@ -340,5 +341,13 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         tickets.clear();
         tickets.addAll(0, db_cinema.getListTicket());
         ticketAdapter.notifyDataSetChanged();
+    }
+
+    private void initializationSessionsSpinner()
+    {
+        Spinner sessionId_HallSpinner = (Spinner) findViewById(R.id.sessionId_HallSpinner);
+        sessionId_HallSpinner.setAdapter(filmAdapter);
+        sessionId_HallSpinner.setPrompt("Films");
+        sessionId_HallSpinner.setSelection(0);
     }
 }

@@ -107,6 +107,12 @@
                         android:layout_height="wrap_content"
                         android:text="id Фильма" />
 
+                    <Spinner
+                        android:id="@+id/sessionId_HallSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+
                     <EditText
                         android:id="@+id/sessionId_FilmEdit"
                         android:layout_width="match_parent"

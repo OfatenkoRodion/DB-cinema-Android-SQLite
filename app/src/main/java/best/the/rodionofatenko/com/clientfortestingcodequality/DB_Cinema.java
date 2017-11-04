@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import Entity.Film;
 import Entity.Hall;
@@ -200,7 +201,7 @@ public class DB_Cinema extends SQLiteOpenHelper
         return priceCategorys;
 
     }
-    public ArrayList<Row> getListRow()
+    public ArrayList<Row> getListRow() 
     {
         ArrayList<Row> rows = new ArrayList<Row>();
         Cursor cursor= this.getWritableDatabase().query("Row",null,null,null,null,null,null);
@@ -235,5 +236,17 @@ public class DB_Cinema extends SQLiteOpenHelper
             } while (cursor.moveToNext());
         }
         return tickets;
+    }
+    public String[] getArray_FilmId()
+    {
+        ArrayList<String> arrayList = new ArrayList<String>();
+        Cursor cursor= this.getWritableDatabase().query("Film",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+              arrayList.add(String.valueOf(cursor.getInt(cursor.getColumnIndex("id"))));
+
+            } while (cursor.moveToNext());
+        }
+        return arrayList.toArray(new String[arrayList.size()]);
     }
 }
