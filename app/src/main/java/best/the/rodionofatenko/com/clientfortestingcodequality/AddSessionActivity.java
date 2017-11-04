@@ -11,6 +11,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -63,6 +64,8 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     EditText place_Number, place_Id_Row;
     EditText ticket_Id_Session, ticket_Id_Place,ticket_Status;
 
+    Spinner sessionId_HallSpinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -70,6 +73,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_add_session);
         db_cinema = new DB_Cinema(this);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        sessionId_HallSpinner = (Spinner) findViewById(R.id.sessionId_HallSpinner);
         initializationButtons();
         initializationEditText();
         initializationListViewFilm();
@@ -299,13 +303,26 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void insertSessionOnClickActions()
     {
-        db_cinema.addSession(session_date.getText().toString(),
+        /*db_cinema.addSession(session_date.getText().toString(),
                 session_time.getText().toString(),
                 Integer.valueOf(session_IdHall.getText().toString()),
                 Integer.valueOf(session_idFilm.getText().toString()));
         sessions.clear();
         sessions.addAll(0, db_cinema.getListSession());
-        sessionAdapter.notifyDataSetChanged();
+        sessionAdapter.notifyDataSetChanged();*/
+        try{
+            Toast.makeText(this,"getSelectedItemPosition() "+ String.valueOf(sessionId_HallSpinner.getSelectedItemPosition()),Toast.LENGTH_LONG).show();
+        }
+        catch (Exception e){
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
+
+        try{
+            Toast.makeText(this,"getSelectedItem() "+ ((Film)sessionId_HallSpinner.getSelectedItem()).getId(),Toast.LENGTH_LONG).show();
+        }
+        catch (Exception e){
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
     }
     private void insertPlaceCategoryOnClickActions()
     {
@@ -337,7 +354,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void insertTicketOnClickActions()
     {
-        db_cinema.addTicket(Integer.valueOf(Integer.valueOf(ticket_Id_Session.getText().toString())),Integer.valueOf(ticket_Id_Place.getText().toString()),ticket_Status.getText().toString());
+        db_cinema.addTicket(Integer.valueOf(ticket_Id_Session.getText().toString()),Integer.valueOf(ticket_Id_Place.getText().toString()),ticket_Status.getText().toString());
         tickets.clear();
         tickets.addAll(0, db_cinema.getListTicket());
         ticketAdapter.notifyDataSetChanged();
@@ -345,7 +362,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
 
     private void initializationSessionsSpinner()
     {
-        Spinner sessionId_HallSpinner = (Spinner) findViewById(R.id.sessionId_HallSpinner);
+        //Spinner sessionId_HallSpinner = (Spinner) findViewById(R.id.sessionId_HallSpinner);
         sessionId_HallSpinner.setAdapter(filmAdapter);
         sessionId_HallSpinner.setPrompt("Films");
         sessionId_HallSpinner.setSelection(0);
