@@ -363,24 +363,22 @@
                         android:layout_height="wrap_content"
                         android:text="id Сеанса" />
 
-                    <EditText
-                        android:id="@+id/ticketId_SessionEdit"
+                    <Spinner
+                        android:id="@+id/ticketId_SessionSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
+                        android:layout_height="wrap_content">
+                    </Spinner>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="id места" />
 
-                    <EditText
-                        android:id="@+id/ticketId_PlaceEdit"
+                    <Spinner
+                        android:id="@+id/ticketId_PlaceSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
+                        android:layout_height="wrap_content">
+                    </Spinner>
 
                     <TextView
                         android:layout_width="match_parent"

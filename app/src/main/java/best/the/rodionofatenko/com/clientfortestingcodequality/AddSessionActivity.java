@@ -69,12 +69,13 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     EditText priceCategory_Price;
     EditText row_Number,row_Сount;
     EditText place_Number;
-    EditText ticket_Id_Session, ticket_Id_Place,ticket_Status;
+    EditText ticket_Status;
 
     Spinner sessionId_FilmSpinner, sessionId_HallSpinner;
     Spinner priceCategoryId_PlaceCategorySpinner,priceCategoryId_sessionSpinner;
     Spinner rowId_HallSpinner,rowId_PlaceCategorySpinner;
     Spinner placeId_RowSpinner;
+    Spinner ticketId_SessionSpinner,ticketId_PlaceSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -99,6 +100,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationPriceCategorySpinner();
         initializationRowSpinner();
         initializationPlaceSpinner();
+        initializationTicketSpinner();
 
         initializationHorizontalScrollView();
     }
@@ -197,8 +199,6 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
 
         place_Number=(EditText)findViewById(R.id.placeNumberEdit);
 
-        ticket_Id_Place=(EditText)findViewById(R.id.ticketId_PlaceEdit);
-        ticket_Id_Session=(EditText)findViewById(R.id.ticketId_SessionEdit);
         ticket_Status=(EditText)findViewById(R.id.ticketStatusEdit);
     }
     private void initializationSessionsSpinner()
@@ -243,6 +243,18 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         placeId_RowSpinner.setAdapter(rowAdapter);
         placeId_RowSpinner.setPrompt("Place");
         placeId_RowSpinner.setSelection(0);
+    }
+    private void initializationTicketSpinner()
+    {
+        ticketId_SessionSpinner = (Spinner) findViewById(R.id.ticketId_SessionSpinner);
+        ticketId_SessionSpinner.setAdapter(sessionAdapter);
+        ticketId_SessionSpinner.setPrompt("Session");
+        ticketId_SessionSpinner.setSelection(0);
+
+        ticketId_PlaceSpinner = (Spinner) findViewById(R.id.ticketId_PlaceSpinner);
+        ticketId_PlaceSpinner.setAdapter(placeAdapter);
+        ticketId_PlaceSpinner.setPrompt("Place");
+        ticketId_PlaceSpinner.setSelection(0);
     }
     private void initializationListViewFilm()
     {
@@ -425,10 +437,17 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void insertTicketOnClickActions()
     {
-        db_cinema.addTicket(Integer.valueOf(ticket_Id_Session.getText().toString()),Integer.valueOf(ticket_Id_Place.getText().toString()),ticket_Status.getText().toString());
-        tickets.clear();
-        tickets.addAll(0, db_cinema.getListTicket());
-        ticketAdapter.notifyDataSetChanged();
+        try
+        {
+            db_cinema.addTicket(((Session)ticketId_SessionSpinner.getSelectedItem()).getId(),((Place)ticketId_PlaceSpinner.getSelectedItem()).getId(),ticket_Status.getText().toString());
+            tickets.clear();
+            tickets.addAll(0, db_cinema.getListTicket());
+            ticketAdapter.notifyDataSetChanged();
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
     }
     private void selectTimeOnClickActions()
     {
