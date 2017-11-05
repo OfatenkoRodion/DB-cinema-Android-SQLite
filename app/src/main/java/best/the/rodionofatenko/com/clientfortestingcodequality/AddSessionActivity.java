@@ -65,12 +65,13 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     EditText hall_number, hall_spaciousness;
     EditText session_date, session_time;
     EditText placeCategory_name;
-    EditText priceCategory_Id_session,priceCategory_Id_PlaceCategory,priceCategory_Price;
+    EditText priceCategory_Price;
     EditText row_Number,row_Id_Hall,row_Id_PlaceCategory, row_Сount;
     EditText place_Number, place_Id_Row;
     EditText ticket_Id_Session, ticket_Id_Place,ticket_Status;
 
     Spinner sessionId_FilmSpinner, sessionId_HallSpinner;
+    Spinner priceCategoryId_PlaceCategorySpinner,priceCategoryId_sessionSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -90,6 +91,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationListViewPlace();
         initializationListViewTicket();
         initializationSessionsSpinner();
+        initializationPriceCategorySpinner();
         initializationHorizontalScrollView();
     }
     @Override
@@ -180,8 +182,6 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
 
         placeCategory_name=(EditText)findViewById(R.id.placeCategoryNameEdit);
 
-        priceCategory_Id_PlaceCategory=(EditText)findViewById(R.id.priceCategoryId_PlaceCategoryEdit);
-        priceCategory_Id_session=(EditText)findViewById(R.id.priceCategoryId_sessionEdit);
         priceCategory_Price=(EditText)findViewById(R.id. priceCategory_PriceEdit);
 
         row_Number=(EditText)findViewById(R.id.rowNumberEdit);
@@ -207,6 +207,18 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         sessionId_FilmSpinner.setAdapter(filmAdapter);
         sessionId_FilmSpinner.setPrompt("Films");
         sessionId_FilmSpinner.setSelection(0);
+    }
+    private void initializationPriceCategorySpinner()
+    {
+        priceCategoryId_PlaceCategorySpinner = (Spinner) findViewById(R.id.priceCategoryId_PlaceCategorySpinner);
+        priceCategoryId_PlaceCategorySpinner.setAdapter(placeCategoryAdapter);
+        priceCategoryId_PlaceCategorySpinner.setPrompt("PriceCategory");
+        priceCategoryId_PlaceCategorySpinner.setSelection(0);
+
+        priceCategoryId_sessionSpinner = (Spinner) findViewById(R.id.priceCategoryId_sessionSpinner);
+        priceCategoryId_sessionSpinner.setAdapter(sessionAdapter);
+        priceCategoryId_sessionSpinner.setPrompt("PriceCategory");
+        priceCategoryId_sessionSpinner.setSelection(0);
     }
     private void initializationListViewFilm()
     {
@@ -354,10 +366,17 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void insertPriceCategoryOnClickActions()
     {
-        db_cinema.addPriceCategory(Integer.valueOf(priceCategory_Id_PlaceCategory.getText().toString()),Integer.valueOf(priceCategory_Id_session.getText().toString()),Integer.valueOf(priceCategory_Price.getText().toString()));
-        priceCategorys.clear();
-        priceCategorys.addAll(0, db_cinema.getListPriceCategory());
-        priceCategoryAdapter.notifyDataSetChanged();
+        try
+        {
+            db_cinema.addPriceCategory(((PlaceCategory) priceCategoryId_PlaceCategorySpinner.getSelectedItem()).getId(), ((Session) priceCategoryId_sessionSpinner.getSelectedItem()).getId(), Integer.valueOf(priceCategory_Price.getText().toString()));
+            priceCategorys.clear();
+            priceCategorys.addAll(0, db_cinema.getListPriceCategory());
+            priceCategoryAdapter.notifyDataSetChanged();
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
     }
     private void insertRowOnClickActions()
     {

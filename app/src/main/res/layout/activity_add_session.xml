@@ -207,24 +207,22 @@
                         android:layout_height="wrap_content"
                         android:text="id категории мест" />
 
-                    <EditText
-                        android:id="@+id/priceCategoryId_PlaceCategoryEdit"
+                    <Spinner
+                        android:id="@+id/priceCategoryId_PlaceCategorySpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
+                        android:layout_height="wrap_content">
+                    </Spinner>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="id Сеанса" />
 
-                    <EditText
-                        android:id="@+id/priceCategoryId_sessionEdit"
+                    <Spinner
+                        android:id="@+id/priceCategoryId_sessionSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
+                        android:layout_height="wrap_content">
+                    </Spinner>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -248,7 +246,6 @@
                         android:id="@+id/priceCategoryList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
