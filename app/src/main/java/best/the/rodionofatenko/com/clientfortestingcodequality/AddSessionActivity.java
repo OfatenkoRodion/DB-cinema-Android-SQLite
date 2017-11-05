@@ -38,7 +38,8 @@ import Entity.Row;
 import Entity.Session;
 import Entity.Ticket;
 
-public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddSessionActivity extends AppCompatActivity implements View.OnClickListener
+{
     ArrayList<Film> films = new ArrayList<Film>();
     ArrayList<Hall> halls = new ArrayList<Hall>();
     ArrayList<Session> sessions = new ArrayList<Session>();
@@ -72,6 +73,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
 
     Spinner sessionId_FilmSpinner, sessionId_HallSpinner;
     Spinner priceCategoryId_PlaceCategorySpinner,priceCategoryId_sessionSpinner;
+    Spinner rowId_HallSpinner,rowId_PlaceCategorySpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -82,6 +84,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initializationButtons();
         initializationEditText();
+
         initializationListViewFilm();
         initializationListViewHall();
         initializationListViewSession();
@@ -90,8 +93,11 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationListViewRow();
         initializationListViewPlace();
         initializationListViewTicket();
+
         initializationSessionsSpinner();
         initializationPriceCategorySpinner();
+        initializationRowSpinner();
+
         initializationHorizontalScrollView();
     }
     @Override
@@ -185,8 +191,6 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         priceCategory_Price=(EditText)findViewById(R.id. priceCategory_PriceEdit);
 
         row_Number=(EditText)findViewById(R.id.rowNumberEdit);
-        row_Id_Hall=(EditText)findViewById(R.id.rowId_HallEdit);
-        row_Id_PlaceCategory=(EditText)findViewById(R.id.rowId_PlaceCategoryEdit);
         row_Сount=(EditText)findViewById(R.id.rowСountEdit);
 
         place_Number=(EditText)findViewById(R.id.placeNumberEdit);
@@ -219,6 +223,18 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         priceCategoryId_sessionSpinner.setAdapter(sessionAdapter);
         priceCategoryId_sessionSpinner.setPrompt("PriceCategory");
         priceCategoryId_sessionSpinner.setSelection(0);
+    }
+    private void initializationRowSpinner()
+    {
+        rowId_HallSpinner = (Spinner) findViewById(R.id.rowId_HallSpinner);
+        rowId_HallSpinner.setAdapter(hallAdapter);
+        rowId_HallSpinner.setPrompt("Hall");
+        rowId_HallSpinner.setSelection(0);
+
+        rowId_PlaceCategorySpinner = (Spinner) findViewById(R.id.rowId_PlaceCategorySpinner);
+        rowId_PlaceCategorySpinner.setAdapter(placeCategoryAdapter);
+        rowId_PlaceCategorySpinner.setPrompt("PlaceCategory");
+        rowId_PlaceCategorySpinner.setSelection(0);
     }
     private void initializationListViewFilm()
     {
@@ -380,10 +396,17 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void insertRowOnClickActions()
     {
-        db_cinema.addRow(Integer.valueOf(row_Number.getText().toString()),Integer.valueOf(row_Id_Hall.getText().toString()),Integer.valueOf(row_Id_PlaceCategory.getText().toString()),Integer.valueOf(row_Сount.getText().toString()));
-        rows.clear();
-        rows.addAll(0, db_cinema.getListRow());
-        rowAdapter.notifyDataSetChanged();
+        try
+        {
+            db_cinema.addRow(Integer.valueOf(row_Number.getText().toString()),((Hall)rowId_HallSpinner.getSelectedItem()).getId(),((PlaceCategory)rowId_PlaceCategorySpinner.getSelectedItem()).getId(),Integer.valueOf(row_Сount.getText().toString()));
+            rows.clear();
+            rows.addAll(0, db_cinema.getListRow());
+            rowAdapter.notifyDataSetChanged();
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
+        }
     }
     private void insertPlaceOnClickActions()
     {

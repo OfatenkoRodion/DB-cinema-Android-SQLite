@@ -270,24 +270,22 @@
                         android:layout_height="wrap_content"
                         android:text="id Зала" />
 
-                    <EditText
-                        android:id="@+id/rowId_HallEdit"
+                    <Spinner
+                        android:id="@+id/rowId_HallSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
+                        android:layout_height="wrap_content">
+                    </Spinner>
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="id Категории" />
 
-                    <EditText
-                        android:id="@+id/rowId_PlaceCategoryEdit"
+                    <Spinner
+                        android:id="@+id/rowId_PlaceCategorySpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
+                        android:layout_height="wrap_content">
+                    </Spinner>
 
                     <TextView
                         android:layout_width="match_parent"
