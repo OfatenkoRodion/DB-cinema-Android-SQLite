@@ -95,12 +95,11 @@
                         android:layout_height="wrap_content"
                         android:text="id Зала" />
 
-                    <EditText
-                        android:id="@+id/sessionId_HallEdit"
+                    <Spinner
+                        android:id="@+id/sessionId_HallSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
+                        android:layout_height="wrap_content">
+                    </Spinner>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -108,17 +107,10 @@
                         android:text="id Фильма" />
 
                     <Spinner
-                        android:id="@+id/sessionId_HallSpinner"
+                        android:id="@+id/sessionId_FilmSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     </Spinner>
-
-                    <EditText
-                        android:id="@+id/sessionId_FilmEdit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
 
                     <Button
                         android:id="@+id/insertSessionButton"

@@ -1,16 +1,22 @@
 package best.the.rodionofatenko.com.clientfortestingcodequality;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import java.util.Calendar;
+
 
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -57,14 +63,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
 
     EditText film_name, film_description;
     EditText hall_number, hall_spaciousness;
-    EditText session_date, session_time, session_idFilm, session_IdHall;
+    EditText session_date, session_time;
     EditText placeCategory_name;
     EditText priceCategory_Id_session,priceCategory_Id_PlaceCategory,priceCategory_Price;
     EditText row_Number,row_Id_Hall,row_Id_PlaceCategory, row_Сount;
     EditText place_Number, place_Id_Row;
     EditText ticket_Id_Session, ticket_Id_Place,ticket_Status;
 
-    Spinner sessionId_HallSpinner;
+    Spinner sessionId_FilmSpinner, sessionId_HallSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -73,7 +79,6 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_add_session);
         db_cinema = new DB_Cinema(this);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        sessionId_HallSpinner = (Spinner) findViewById(R.id.sessionId_HallSpinner);
         initializationButtons();
         initializationEditText();
         initializationListViewFilm();
@@ -129,6 +134,16 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         {
             insertTicketOnClickActions();
         }
+        else
+        if (view == session_date)
+        {
+            selectDateOnClickActions();
+        }
+        else
+        if (view == session_time)
+        {
+            selectTimeOnClickActions();
+        }
     }
     private void initializationButtons()
     {
@@ -160,8 +175,8 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
 
         session_date=(EditText)findViewById(R.id.sessionDateEdit);
         session_time=(EditText)findViewById(R.id.sessionTimeEdit);
-        session_idFilm=(EditText)findViewById(R.id.sessionId_FilmEdit);
-        session_IdHall=(EditText)findViewById(R.id.sessionId_HallEdit);
+        session_date.setOnClickListener(this);
+        session_time.setOnClickListener(this);
 
         placeCategory_name=(EditText)findViewById(R.id.placeCategoryNameEdit);
 
@@ -180,6 +195,18 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         ticket_Id_Place=(EditText)findViewById(R.id.ticketId_PlaceEdit);
         ticket_Id_Session=(EditText)findViewById(R.id.ticketId_SessionEdit);
         ticket_Status=(EditText)findViewById(R.id.ticketStatusEdit);
+    }
+    private void initializationSessionsSpinner()
+    {
+        sessionId_HallSpinner = (Spinner) findViewById(R.id.sessionId_HallSpinner);
+        sessionId_HallSpinner.setAdapter(hallAdapter);
+        sessionId_HallSpinner.setPrompt("Halls");
+        sessionId_HallSpinner.setSelection(0);
+
+        sessionId_FilmSpinner = (Spinner) findViewById(R.id.sessionId_FilmSpinner);
+        sessionId_FilmSpinner.setAdapter(filmAdapter);
+        sessionId_FilmSpinner.setPrompt("Films");
+        sessionId_FilmSpinner.setSelection(0);
     }
     private void initializationListViewFilm()
     {
@@ -303,24 +330,18 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void insertSessionOnClickActions()
     {
-        /*db_cinema.addSession(session_date.getText().toString(),
-                session_time.getText().toString(),
-                Integer.valueOf(session_IdHall.getText().toString()),
-                Integer.valueOf(session_idFilm.getText().toString()));
-        sessions.clear();
-        sessions.addAll(0, db_cinema.getListSession());
-        sessionAdapter.notifyDataSetChanged();*/
-        try{
-            Toast.makeText(this,"getSelectedItemPosition() "+ String.valueOf(sessionId_HallSpinner.getSelectedItemPosition()),Toast.LENGTH_LONG).show();
+        try
+        {
+            db_cinema.addSession(session_date.getText().toString(),
+                    session_time.getText().toString(),
+                    ((Hall) sessionId_HallSpinner.getSelectedItem()).getId(),
+                    ((Film) sessionId_FilmSpinner.getSelectedItem()).getId());
+            sessions.clear();
+            sessions.addAll(0, db_cinema.getListSession());
+            sessionAdapter.notifyDataSetChanged();
         }
-        catch (Exception e){
-            Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
-        }
-
-        try{
-            Toast.makeText(this,"getSelectedItem() "+ ((Film)sessionId_HallSpinner.getSelectedItem()).getId(),Toast.LENGTH_LONG).show();
-        }
-        catch (Exception e){
+        catch (Exception e)
+        {
             Toast.makeText(this,e.toString(),Toast.LENGTH_LONG).show();
         }
     }
@@ -359,12 +380,36 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         tickets.addAll(0, db_cinema.getListTicket());
         ticketAdapter.notifyDataSetChanged();
     }
-
-    private void initializationSessionsSpinner()
+    private void selectTimeOnClickActions()
     {
-        //Spinner sessionId_HallSpinner = (Spinner) findViewById(R.id.sessionId_HallSpinner);
-        sessionId_HallSpinner.setAdapter(filmAdapter);
-        sessionId_HallSpinner.setPrompt("Films");
-        sessionId_HallSpinner.setSelection(0);
+        final Calendar calendar = Calendar.getInstance();
+        int hours = calendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener()
+        {
+            @Override
+            public void onTimeSet(TimePicker view, int hours, int minutes)
+            {
+                session_time.setText(hours+":"+minutes);
+            }
+        },hours,minutes,false);
+        timePickerDialog.show();
+    }
+    private void selectDateOnClickActions()
+    {
+        final Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day)
+            {
+                session_date.setText(day+"."+month+"."+year);
+            }
+        },day,month,year);
+        datePickerDialog.show();
     }
 }
