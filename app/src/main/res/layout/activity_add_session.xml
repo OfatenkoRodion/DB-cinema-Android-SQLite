@@ -334,12 +334,11 @@
                         android:layout_height="wrap_content"
                         android:text="id ряда" />
 
-                    <EditText
-                        android:id="@+id/placeId_RowEdit"
+                    <Spinner
+                        android:id="@+id/placeId_RowSpinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textMultiLine"/>
+                        android:layout_height="wrap_content">
+                    </Spinner>
 
                     <Button
                         android:id="@+id/insertPlaceButton"

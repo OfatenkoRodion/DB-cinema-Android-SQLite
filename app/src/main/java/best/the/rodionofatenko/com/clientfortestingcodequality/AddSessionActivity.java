@@ -67,13 +67,14 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     EditText session_date, session_time;
     EditText placeCategory_name;
     EditText priceCategory_Price;
-    EditText row_Number,row_Id_Hall,row_Id_PlaceCategory, row_Сount;
-    EditText place_Number, place_Id_Row;
+    EditText row_Number,row_Сount;
+    EditText place_Number;
     EditText ticket_Id_Session, ticket_Id_Place,ticket_Status;
 
     Spinner sessionId_FilmSpinner, sessionId_HallSpinner;
     Spinner priceCategoryId_PlaceCategorySpinner,priceCategoryId_sessionSpinner;
     Spinner rowId_HallSpinner,rowId_PlaceCategorySpinner;
+    Spinner placeId_RowSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -97,6 +98,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         initializationSessionsSpinner();
         initializationPriceCategorySpinner();
         initializationRowSpinner();
+        initializationPlaceSpinner();
 
         initializationHorizontalScrollView();
     }
@@ -194,7 +196,6 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         row_Сount=(EditText)findViewById(R.id.rowСountEdit);
 
         place_Number=(EditText)findViewById(R.id.placeNumberEdit);
-        place_Id_Row=(EditText)findViewById(R.id.placeId_RowEdit);
 
         ticket_Id_Place=(EditText)findViewById(R.id.ticketId_PlaceEdit);
         ticket_Id_Session=(EditText)findViewById(R.id.ticketId_SessionEdit);
@@ -235,6 +236,13 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         rowId_PlaceCategorySpinner.setAdapter(placeCategoryAdapter);
         rowId_PlaceCategorySpinner.setPrompt("PlaceCategory");
         rowId_PlaceCategorySpinner.setSelection(0);
+    }
+    private void initializationPlaceSpinner()
+    {
+        placeId_RowSpinner = (Spinner) findViewById(R.id.placeId_RowSpinner);
+        placeId_RowSpinner.setAdapter(rowAdapter);
+        placeId_RowSpinner.setPrompt("Place");
+        placeId_RowSpinner.setSelection(0);
     }
     private void initializationListViewFilm()
     {
@@ -299,7 +307,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         tickets.addAll(0, db_cinema.getListTicket());
         ticketAdapter = new TicketAdapter(this, tickets);
         ListView lvTicket = (ListView) findViewById(R.id.ticketList);
-        lvTicket.setAdapter(placeAdapter);
+        lvTicket.setAdapter(ticketAdapter);
     }
     private void initializationHorizontalScrollView()
     {
@@ -410,7 +418,7 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
     }
     private void insertPlaceOnClickActions()
     {
-        db_cinema.addPlace(Integer.valueOf(place_Number.getText().toString()),Integer.valueOf(place_Id_Row.getText().toString()));
+        db_cinema.addPlace(Integer.valueOf(place_Number.getText().toString()),((Row)placeId_RowSpinner.getSelectedItem()).getId());
         places.clear();
         places.addAll(0, db_cinema.getListPlace());
         placeAdapter.notifyDataSetChanged();
