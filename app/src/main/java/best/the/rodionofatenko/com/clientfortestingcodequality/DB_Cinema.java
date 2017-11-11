@@ -249,4 +249,19 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return arrayList.toArray(new String[arrayList.size()]);
     }
+    public ArrayList<String> getListTimeByDate(String date)
+    {
+        ArrayList<String> times = new ArrayList<String>();
+        String selection = "date = ?";
+        String selectionArgs[]=new String[] { date };
+
+        Cursor cursor= this.getWritableDatabase().query("Session",null,selection, selectionArgs,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                times.add(cursor.getString(cursor.getColumnIndex("time")));
+
+            } while (cursor.moveToNext());
+        }
+        return times;
+    }
 }
