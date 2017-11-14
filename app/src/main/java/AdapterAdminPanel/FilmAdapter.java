@@ -1,4 +1,4 @@
-package Adapter;
+package AdapterAdminPanel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,15 +10,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Entity.Film;
-import Entity.Hall;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class HallAdapter extends BaseAdapter {
+public class FilmAdapter extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<Hall> objects;
+    ArrayList<Film> objects;
 
-    public HallAdapter(Context context, ArrayList<Hall> products) {
+    public FilmAdapter(Context context, ArrayList<Film> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx
@@ -44,17 +43,17 @@ public class HallAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(R.layout.hall, parent, false);
+            view = lInflater.inflate(R.layout.film, parent, false);
         }
-        Hall p = (Hall)getProduct(position);
-        ((TextView) view.findViewById(R.id.textIdHall)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textNumber)).setText(" №:"+String.valueOf(p.getNumber()));
-        ((TextView) view.findViewById(R.id.textSpaciousness)).setText(" Spac.:"+String.valueOf(p.getSpaciousness()));
+        Film p = (Film)getProduct(position);
+        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
+        ((TextView) view.findViewById(R.id.textName)).setText(" Name:"+String.valueOf(p.getName()));
+        ((TextView) view.findViewById(R.id.textDescription)).setText(" Des.:"+String.valueOf(p.getDescription()));
 
         return view;
     }
-    public Hall getProduct(int position) {
-        return ((Hall) getItem(position));
+    public Film getProduct(int position) {
+        return ((Film) getItem(position));
     }
 
 }

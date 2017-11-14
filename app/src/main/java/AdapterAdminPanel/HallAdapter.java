@@ -1,4 +1,4 @@
-package Adapter;
+package AdapterAdminPanel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Entity.Ticket;
+import Entity.Hall;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class TicketAdapter extends BaseAdapter {
+public class HallAdapter extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<Ticket> objects;
+    ArrayList<Hall> objects;
 
-    public TicketAdapter(Context context, ArrayList<Ticket> products) {
+    public HallAdapter(Context context, ArrayList<Hall> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx
@@ -43,18 +43,17 @@ public class TicketAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(R.layout.ticket, parent, false);
+            view = lInflater.inflate(R.layout.hall, parent, false);
         }
-        Ticket p = (Ticket)getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textId_Session)).setText(" id_Session:"+String.valueOf(p.getId_Session()));
-        ((TextView) view.findViewById(R.id.textId_Place)).setText(" id_Place:"+String.valueOf(p.getId_Place()));
-        ((TextView) view.findViewById(R.id.textStatus)).setText("status:"+String.valueOf(p.getStatus()));
+        Hall p = (Hall)getProduct(position);
+        ((TextView) view.findViewById(R.id.textIdHall)).setText("id:"+String.valueOf(p.getId()));
+        ((TextView) view.findViewById(R.id.textNumber)).setText(" №:"+String.valueOf(p.getNumber()));
+        ((TextView) view.findViewById(R.id.textSpaciousness)).setText(" Spac.:"+String.valueOf(p.getSpaciousness()));
 
         return view;
     }
-    public Ticket getProduct(int position) {
-        return ((Ticket) getItem(position));
+    public Hall getProduct(int position) {
+        return ((Hall) getItem(position));
     }
 
 }

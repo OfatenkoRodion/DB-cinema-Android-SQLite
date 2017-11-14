@@ -1,4 +1,4 @@
-package Adapter;
+package AdapterAdminPanel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,15 +9,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Entity.PriceCategory;
+import Entity.Row;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class PriceCategoryAdapter extends BaseAdapter {
+public class RowAdapter extends BaseAdapter
+{
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<PriceCategory> objects;
+    ArrayList<Row> objects;
 
-    public PriceCategoryAdapter(Context context, ArrayList<PriceCategory> products) {
+    public RowAdapter(Context context, ArrayList<Row> products)
+    {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx
@@ -43,19 +45,21 @@ public class PriceCategoryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View view = convertView;
-        if (view == null) {
-            view = lInflater.inflate(R.layout.price_category, parent, false);
+        if (view == null)
+        {
+            view = lInflater.inflate(R.layout.row, parent, false);
         }
-        PriceCategory p = getProduct(position);
+        Row p = (Row)getProduct(position);
         ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textPrice)).setText(" Цена:"+String.valueOf(p.getPrice()));
-        ((TextView) view.findViewById(R.id.textId_PlaceCategory)).setText("id Категории:"+String.valueOf(p.getId_PlaceCategory()));
-        ((TextView) view.findViewById(R.id.textId_session)).setText(" id Сеанса:"+String.valueOf(p.getId_session()));
+        ((TextView) view.findViewById(R.id.textNumber)).setText("№:"+String.valueOf(p.getNumber()));
+        ((TextView) view.findViewById(R.id.textId_Hall)).setText("id_Hall:"+String.valueOf(p.getId_Hall()));
+        ((TextView) view.findViewById(R.id.textId_PlaceCategory)).setText("d_PC:"+String.valueOf(p.getId_PlaceCategory()));
+        ((TextView) view.findViewById(R.id.textCount)).setText("Count:"+String.valueOf(p.getCount()));
 
         return view;
     }
-    public PriceCategory getProduct(int position) {
-        return ((PriceCategory) getItem(position));
+    public Row getProduct(int position)
+    {
+        return ((Row) getItem(position));
     }
-
 }

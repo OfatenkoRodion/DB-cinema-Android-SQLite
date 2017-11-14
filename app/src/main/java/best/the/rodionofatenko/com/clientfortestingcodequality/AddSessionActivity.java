@@ -21,14 +21,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import Adapter.FilmAdapter;
-import Adapter.HallAdapter;
-import Adapter.PlaceAdapter;
-import Adapter.PlaceCategoryAdapter;
-import Adapter.PriceCategoryAdapter;
-import Adapter.RowAdapter;
-import Adapter.SessionAdapter;
-import Adapter.TicketAdapter;
+import AdapterAdminPanel.FilmAdapter;
+import AdapterAdminPanel.HallAdapter;
+import AdapterAdminPanel.PlaceAdapter;
+import AdapterAdminPanel.PlaceCategoryAdapter;
+import AdapterAdminPanel.PriceCategoryAdapter;
+import AdapterAdminPanel.RowAdapter;
+import AdapterAdminPanel.SessionAdapter;
+import AdapterAdminPanel.TicketAdapter;
 import Entity.Film;
 import Entity.Hall;
 import Entity.Place;

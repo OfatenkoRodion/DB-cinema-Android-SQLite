@@ -1,4 +1,4 @@
-package Adapter;
+package AdapterAdminPanel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,16 +9,16 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Entity.Row;
+import Entity.Place;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class RowAdapter extends BaseAdapter
+public class PlaceAdapter extends BaseAdapter
 {
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<Row> objects;
+    ArrayList<Place> objects;
 
-    public RowAdapter(Context context, ArrayList<Row> products)
+    public PlaceAdapter(Context context, ArrayList<Place> products)
     {
         ctx = context;
         objects = products;
@@ -47,19 +47,17 @@ public class RowAdapter extends BaseAdapter
         View view = convertView;
         if (view == null)
         {
-            view = lInflater.inflate(R.layout.row, parent, false);
+            view = lInflater.inflate(R.layout.place, parent, false);
         }
-        Row p = (Row)getProduct(position);
+        Place p = (Place)getProduct(position);
         ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
         ((TextView) view.findViewById(R.id.textNumber)).setText("№:"+String.valueOf(p.getNumber()));
-        ((TextView) view.findViewById(R.id.textId_Hall)).setText("id_Hall:"+String.valueOf(p.getId_Hall()));
-        ((TextView) view.findViewById(R.id.textId_PlaceCategory)).setText("d_PC:"+String.valueOf(p.getId_PlaceCategory()));
-        ((TextView) view.findViewById(R.id.textCount)).setText("Count:"+String.valueOf(p.getCount()));
+        ((TextView) view.findViewById(R.id.textId_Row)).setText("id ряда:"+String.valueOf(p.getId_Row()));
 
         return view;
     }
-    public Row getProduct(int position)
+    public Place getProduct(int position)
     {
-        return ((Row) getItem(position));
+        return ((Place) getItem(position));
     }
 }

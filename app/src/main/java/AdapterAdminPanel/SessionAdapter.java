@@ -1,4 +1,4 @@
-package Adapter;
+package AdapterAdminPanel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Entity.Film;
+import Entity.Session;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class FilmAdapter extends BaseAdapter {
+public class SessionAdapter extends BaseAdapter  {
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<Film> objects;
+    ArrayList<Session> objects;
 
-    public FilmAdapter(Context context, ArrayList<Film> products) {
+    public SessionAdapter(Context context, ArrayList<Session> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx
@@ -43,17 +43,19 @@ public class FilmAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(R.layout.film, parent, false);
+            view = lInflater.inflate(R.layout.session, parent, false);
         }
-        Film p = (Film)getProduct(position);
+        Session p = (Session)getProduct(position);
         ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textName)).setText(" Name:"+String.valueOf(p.getName()));
-        ((TextView) view.findViewById(R.id.textDescription)).setText(" Des.:"+String.valueOf(p.getDescription()));
+        ((TextView) view.findViewById(R.id.textDate)).setText(" Date:"+String.valueOf(p.getDate()));
+        ((TextView) view.findViewById(R.id.textTime)).setText(" Time:"+String.valueOf(p.getTime()));
+        ((TextView) view.findViewById(R.id.textId_Hall)).setText(" Id_Hall:"+String.valueOf(p.getId_Hall()));
+        ((TextView) view.findViewById(R.id.textId_Film)).setText(" Id_Film:"+String.valueOf(p.getId_Film()));
 
         return view;
     }
-    public Film getProduct(int position) {
-        return ((Film) getItem(position));
+    public Session getProduct(int position) {
+        return ((Session) getItem(position));
     }
 
 }

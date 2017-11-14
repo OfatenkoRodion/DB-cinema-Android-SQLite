@@ -1,4 +1,4 @@
-package Adapter;
+package AdapterAdminPanel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,17 +9,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Entity.Place;
+import Entity.PlaceCategory;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class PlaceAdapter extends BaseAdapter
-{
+public class PlaceCategoryAdapter extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<Place> objects;
+    ArrayList<PlaceCategory> objects;
 
-    public PlaceAdapter(Context context, ArrayList<Place> products)
-    {
+    public PlaceCategoryAdapter(Context context, ArrayList<PlaceCategory> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx
@@ -42,22 +40,19 @@ public class PlaceAdapter extends BaseAdapter
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
+    public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        if (view == null)
-        {
-            view = lInflater.inflate(R.layout.place, parent, false);
+        if (view == null) {
+            view = lInflater.inflate(R.layout.place_category, parent, false);
         }
-        Place p = (Place)getProduct(position);
+        PlaceCategory p = getProduct(position);
         ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textNumber)).setText("№:"+String.valueOf(p.getNumber()));
-        ((TextView) view.findViewById(R.id.textId_Row)).setText("id ряда:"+String.valueOf(p.getId_Row()));
+        ((TextView) view.findViewById(R.id.textName)).setText(" Name:"+String.valueOf(p.getName()));
 
         return view;
     }
-    public Place getProduct(int position)
-    {
-        return ((Place) getItem(position));
+    public PlaceCategory getProduct(int position) {
+        return  (PlaceCategory)getItem(position);
     }
+
 }

@@ -1,4 +1,4 @@
-package Adapter;
+package AdapterAdminPanel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,16 +9,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import Entity.Film;
-import Entity.PlaceCategory;
+import Entity.PriceCategory;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-public class PlaceCategoryAdapter extends BaseAdapter {
+public class PriceCategoryAdapter extends BaseAdapter {
     Context ctx;
     LayoutInflater lInflater;
-    ArrayList<PlaceCategory> objects;
+    ArrayList<PriceCategory> objects;
 
-    public PlaceCategoryAdapter(Context context, ArrayList<PlaceCategory> products) {
+    public PriceCategoryAdapter(Context context, ArrayList<PriceCategory> products) {
         ctx = context;
         objects = products;
         lInflater = (LayoutInflater) ctx
@@ -41,19 +40,22 @@ public class PlaceCategoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent)
+    {
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(R.layout.place_category, parent, false);
+            view = lInflater.inflate(R.layout.price_category, parent, false);
         }
-        PlaceCategory p = getProduct(position);
+        PriceCategory p = getProduct(position);
         ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textName)).setText(" Name:"+String.valueOf(p.getName()));
+        ((TextView) view.findViewById(R.id.textPrice)).setText(" Цена:"+String.valueOf(p.getPrice()));
+        ((TextView) view.findViewById(R.id.textId_PlaceCategory)).setText("id Категории:"+String.valueOf(p.getId_PlaceCategory()));
+        ((TextView) view.findViewById(R.id.textId_session)).setText(" id Сеанса:"+String.valueOf(p.getId_session()));
 
         return view;
     }
-    public PlaceCategory getProduct(int position) {
-        return  (PlaceCategory)getItem(position);
+    public PriceCategory getProduct(int position) {
+        return ((PriceCategory) getItem(position));
     }
 
 }
