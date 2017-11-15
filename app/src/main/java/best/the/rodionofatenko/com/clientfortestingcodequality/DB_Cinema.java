@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
 import Entity.Film;
@@ -259,6 +260,30 @@ public class DB_Cinema extends SQLiteOpenHelper
         if (cursor.moveToFirst()){
             do  {
                 times.add(cursor.getString(cursor.getColumnIndex("time")));
+
+            } while (cursor.moveToNext());
+        }
+        return times;
+    }
+    public ArrayList<String> getListAllDate()
+    {
+        ArrayList<String> times = new ArrayList<String>();
+        Cursor cursor= this.getWritableDatabase().query("Session",null,null, null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                times.add(cursor.getString(cursor.getColumnIndex("date")));
+
+            } while (cursor.moveToNext());
+        }
+        return times;
+    }
+    public HashSet<String> getSetAllDate()
+    {
+        HashSet<String> times = new HashSet<String>();
+        Cursor cursor= this.getWritableDatabase().query("Session",null,null, null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                times.add(cursor.getString(cursor.getColumnIndex("date")));
 
             } while (cursor.moveToNext());
         }

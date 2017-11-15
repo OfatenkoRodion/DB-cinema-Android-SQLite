@@ -7,6 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import AdapterFilmView.FilmRecylerAdapter;
 import AdapterFilmView.TimeRecylerAdapter;
 
 public class FilmActivity extends AppCompatActivity
@@ -15,7 +19,7 @@ public class FilmActivity extends AppCompatActivity
     DB_Cinema db_cinema;
     private RecyclerView recyclerView;
     private LinearLayoutManager horizontalLinearLayoutManager;
-    private TimeRecylerAdapter adapter;
+    private FilmRecylerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,8 +31,18 @@ public class FilmActivity extends AppCompatActivity
         horizontalLinearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(horizontalLinearLayoutManager);
-        adapter=new TimeRecylerAdapter();
+        adapter=new FilmRecylerAdapter();
         recyclerView.setAdapter(adapter);
-        adapter.addAll(db_cinema.getListTimeByDate("12345"));
+
+
+        HashSet<String> allDate = db_cinema.getSetAllDate();
+        ArrayList<ArrayList<String>> arrayLists = new ArrayList<ArrayList<String>>();
+
+        for ( String date : allDate )
+        {
+            arrayLists.add(db_cinema.getListTimeByDate(date));
+        }
+        adapter.addAll(arrayLists);
+
     }
 }
