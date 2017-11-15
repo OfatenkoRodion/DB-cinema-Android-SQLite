@@ -10,7 +10,7 @@ import java.util.List;
 
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
-class TimeRecylerAdapter extends RecyclerView.Adapter<TimeRecyclerViewHolder>
+public class TimeRecylerAdapter extends RecyclerView.Adapter<TimeRecyclerViewHolder>
 {
     private ArrayList<String> items = new ArrayList<>();
 
