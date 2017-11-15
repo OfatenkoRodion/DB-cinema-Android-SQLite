@@ -30,9 +30,9 @@ public class FilmRecyclerViewHolder extends RecyclerView.ViewHolder
         recyclerView.setAdapter(adapter);
     }
 
-    public void bind(ArrayList<String> times)
+    public void bind(ArrayList<String> times,String date)
     {
-        date.setText("Дата");
+        this.date.setText(date);
         adapter.addAll(times);
         adapter.notifyItemChanged(times.size());
     }

@@ -12,6 +12,7 @@ import java.util.HashSet;
 
 import AdapterFilmView.FilmRecylerAdapter;
 import AdapterFilmView.TimeRecylerAdapter;
+import DataPackaging.AllSessionTimesByDay;
 
 public class FilmActivity extends AppCompatActivity
 {
@@ -27,7 +28,11 @@ public class FilmActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_film);
         db_cinema = new DB_Cinema(this);
+        initRecycler();
+    }
 
+    private void initRecycler()
+    {
         horizontalLinearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(horizontalLinearLayoutManager);
@@ -36,13 +41,12 @@ public class FilmActivity extends AppCompatActivity
 
 
         HashSet<String> allDate = db_cinema.getSetAllDate();
-        ArrayList<ArrayList<String>> arrayLists = new ArrayList<ArrayList<String>>();
+        ArrayList<AllSessionTimesByDay> arrayLists = new ArrayList<AllSessionTimesByDay>();
 
         for ( String date : allDate )
         {
-            arrayLists.add(db_cinema.getListTimeByDate(date));
+            arrayLists.add(new AllSessionTimesByDay(db_cinema.getListTimeByDate(date),date));
         }
         adapter.addAll(arrayLists);
-
     }
 }

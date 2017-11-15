@@ -6,15 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import DataPackaging.AllSessionTimesByDay;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHolder>
 {
-    private ArrayList<ArrayList<String>> items = new ArrayList<>();
+    private ArrayList<AllSessionTimesByDay> items = new ArrayList<>();
 
-    public void addAll(ArrayList<ArrayList<String>> items)
+    public void addAll(ArrayList<AllSessionTimesByDay> items)
     {
         int pos = getItemCount();
         this.items.addAll(items);
@@ -29,7 +29,7 @@ public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHol
     @Override
     public void onBindViewHolder(FilmRecyclerViewHolder holder, int position)
     {
-        holder.bind(items.get(position));
+        holder.bind(items.get(position).getAllSessionsTimes(),items.get(position).getDate());
     }
 
     @Override
