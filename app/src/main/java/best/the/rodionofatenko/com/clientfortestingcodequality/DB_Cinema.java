@@ -241,7 +241,6 @@ public class DB_Cinema extends SQLiteOpenHelper
     public ArrayList<String> getListTimeByDate(String date,String id_film)
     {
         ArrayList<String> times = new ArrayList<String>();
-        String selectionArgs[]=new String[] { date };
         Cursor cursor= this.getWritableDatabase().query("Session",
                 null,
                 "date = ? and id_Film = ?",
@@ -275,6 +274,33 @@ public class DB_Cinema extends SQLiteOpenHelper
                 Film film = new Film((int) cursor.getInt(cursor.getColumnIndex("id")), (String) cursor.getString(cursor.getColumnIndex("name")), (String) cursor.getString(cursor.getColumnIndex("description")));
                 films.add(film);
             } while (cursor.moveToNext());
+        }
+        return films;
+    }
+    public  ArrayList<String> getListFilmsByDate( String date)
+    {
+        ArrayList<String> ids = new ArrayList<String>();
+        String selection = "date = ?";
+        String selectionArgs[]=new String[] { date };
+        Cursor cursor= this.getWritableDatabase().query("Session",null,null,null,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                ids.add(cursor.getString(cursor.getColumnIndex("id_Film")));
+
+            } while (cursor.moveToNext());
+        }
+        return ids;
+    }
+    public HashSet<Film> getHashSetFilm(ArrayList<String> ids)
+    {
+        String[] mass = ids.toArray(new String[ids.size()]);
+        HashSet<Film> films = new HashSet<Film>();
+        Cursor cursor2 = this.getWritableDatabase().query("Film", null, "id = ?",mass, null, null, null);
+        if (cursor2.moveToFirst()) {
+            do {
+                Film film = new Film((int) cursor2.getInt(cursor2.getColumnIndex("id")), (String) cursor2.getString(cursor2.getColumnIndex("name")), (String) cursor2.getString(cursor2.getColumnIndex("description")));
+                films.add(film);
+            } while (cursor2.moveToNext());
         }
         return films;
     }

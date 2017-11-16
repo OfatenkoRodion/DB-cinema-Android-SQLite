@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import DataPackaging.AllSessionTimesByDay;
+import DataPackaging.AllSessionsOfFilmInDay;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHolder>
 {
-    private ArrayList<AllSessionTimesByDay> items = new ArrayList<>();
+    private ArrayList<AllSessionsOfFilmInDay> items = new ArrayList<>();
 
-    public void addAll(ArrayList<AllSessionTimesByDay> items)
+    public void addAll(ArrayList<AllSessionsOfFilmInDay> items)
     {
         int pos = getItemCount();
         this.items.addAll(items);
@@ -26,10 +27,11 @@ public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHol
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.film_item_card,parent,false);
         return new FilmRecyclerViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(FilmRecyclerViewHolder holder, int position)
     {
-        holder.bind(items.get(position).getAllSessionsTimes(),items.get(position).getDate());
+        holder.bind(items.get(position).getAllSessionsTimes(),items.get(position).getFilm());
     }
 
     @Override
