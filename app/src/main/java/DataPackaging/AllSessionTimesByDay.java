@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 public class AllSessionTimesByDay
 {
-    private ArrayList<String> allSessionsTimes;
+    private ArrayList<String> allSessionsTimes = new ArrayList<>();
     private String date;
 
-    public AllSessionTimesByDay(ArrayList<String> allDate, String date)
+    public AllSessionTimesByDay(ArrayList<AllSessionsOfFilmInDay> allDate, String date)
     {
-        this.allSessionsTimes = allDate;
+        for  (int i=0;i<allDate.size();i++)
+        {
+            this.allSessionsTimes.addAll(allDate.get(i).getAllSessionsTimes());
+        }
         this.date = date;
     }
 

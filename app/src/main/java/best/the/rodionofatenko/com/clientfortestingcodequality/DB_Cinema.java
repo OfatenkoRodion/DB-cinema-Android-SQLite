@@ -238,40 +238,17 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return tickets;
     }
-    public String[] getArray_FilmId()
-    {
-        ArrayList<String> arrayList = new ArrayList<String>();
-        Cursor cursor= this.getWritableDatabase().query("Film",null,null,null,null,null,null);
-        if (cursor.moveToFirst()){
-            do  {
-              arrayList.add(String.valueOf(cursor.getInt(cursor.getColumnIndex("id"))));
-
-            } while (cursor.moveToNext());
-        }
-        return arrayList.toArray(new String[arrayList.size()]);
-    }
-    public ArrayList<String> getListTimeByDate(String date)
+    public ArrayList<String> getListTimeByDate(String date,String id_film)
     {
         ArrayList<String> times = new ArrayList<String>();
-        String selection = "date = ?";
         String selectionArgs[]=new String[] { date };
-
-        Cursor cursor= this.getWritableDatabase().query("Session",null,selection, selectionArgs,null,null,null);
+        Cursor cursor= this.getWritableDatabase().query("Session",
+                null,
+                "date = ? and id_Film = ?",
+                new String[]{String.valueOf(date),String.valueOf(id_film)}, null, null, null);
         if (cursor.moveToFirst()){
             do  {
                 times.add(cursor.getString(cursor.getColumnIndex("time")));
-
-            } while (cursor.moveToNext());
-        }
-        return times;
-    }
-    public ArrayList<String> getListAllDate()
-    {
-        ArrayList<String> times = new ArrayList<String>();
-        Cursor cursor= this.getWritableDatabase().query("Session",null,null, null,null,null,null);
-        if (cursor.moveToFirst()){
-            do  {
-                times.add(cursor.getString(cursor.getColumnIndex("date")));
 
             } while (cursor.moveToNext());
         }
@@ -288,5 +265,17 @@ public class DB_Cinema extends SQLiteOpenHelper
             } while (cursor.moveToNext());
         }
         return times;
+    }
+    public HashSet<Film> getHashSetFilm()
+    {
+        HashSet<Film> films = new HashSet<Film>();
+        Cursor cursor = this.getWritableDatabase().query("Film", null, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                Film film = new Film((int) cursor.getInt(cursor.getColumnIndex("id")), (String) cursor.getString(cursor.getColumnIndex("name")), (String) cursor.getString(cursor.getColumnIndex("description")));
+                films.add(film);
+            } while (cursor.moveToNext());
+        }
+        return films;
     }
 }
