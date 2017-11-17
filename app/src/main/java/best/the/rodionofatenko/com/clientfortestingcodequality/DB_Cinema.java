@@ -277,12 +277,12 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return films;
     }
-    public  ArrayList<String> getListFilmsByDate( String date)
+    public  HashSet<String> getHashSetFilmsByDate(String date)
     {
-        ArrayList<String> ids = new ArrayList<String>();
+        HashSet<String> ids = new HashSet<String>();
         String selection = "date = ?";
         String selectionArgs[]=new String[] { date };
-        Cursor cursor= this.getWritableDatabase().query("Session",null,null,null,null,null,null);
+        Cursor cursor= this.getWritableDatabase().query("Session",null,selection,selectionArgs,null,null,null);
         if (cursor.moveToFirst()){
             do  {
                 ids.add(cursor.getString(cursor.getColumnIndex("id_Film")));
@@ -291,16 +291,19 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return ids;
     }
-    public HashSet<Film> getHashSetFilm(ArrayList<String> ids)
+    public HashSet<Film> getHashSetFilm(HashSet<String> ids)
     {
-        String[] mass = ids.toArray(new String[ids.size()]);
         HashSet<Film> films = new HashSet<Film>();
-        Cursor cursor2 = this.getWritableDatabase().query("Film", null, "id = ?",mass, null, null, null);
-        if (cursor2.moveToFirst()) {
-            do {
-                Film film = new Film((int) cursor2.getInt(cursor2.getColumnIndex("id")), (String) cursor2.getString(cursor2.getColumnIndex("name")), (String) cursor2.getString(cursor2.getColumnIndex("description")));
-                films.add(film);
-            } while (cursor2.moveToNext());
+        for (String str: ids)
+        {
+            String[] mass ={str};
+            Cursor cursor2 = this.getWritableDatabase().query("Film", null, "id = ?",mass, null, null, null);
+            if (cursor2.moveToFirst()) {
+                do {
+                    Film film = new Film((int) cursor2.getInt(cursor2.getColumnIndex("id")), (String) cursor2.getString(cursor2.getColumnIndex("name")), (String) cursor2.getString(cursor2.getColumnIndex("description")));
+                    films.add(film);
+                } while (cursor2.moveToNext());
+            }
         }
         return films;
     }
