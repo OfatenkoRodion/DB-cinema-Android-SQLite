@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -14,9 +15,9 @@ import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class SessionAdapter extends BaseAdapter  {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<Session> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Session> objects;
 
     public SessionAdapter(Context context, ArrayList<Session> products) {
         ctx = context;
@@ -49,7 +50,9 @@ public class SessionAdapter extends BaseAdapter  {
         Session p = (Session)getProduct(position);
         ((TextView) view.findViewById(R.id.textDate)).setText(String.valueOf(p.getDate()));
         ((TextView) view.findViewById(R.id.textTime)).setText(String.valueOf(p.getTime())+" ");
-        ((TextView) view.findViewById(R.id.textId_Film)).setText(String.valueOf(p.getId_Film()));
+
+        DB_Cinema db_cinema = new DB_Cinema(ctx);
+        ((TextView) view.findViewById(R.id.textId_Film)).setText(db_cinema.getFilmNameById(p.getId_Film()));
 
         return view;
     }

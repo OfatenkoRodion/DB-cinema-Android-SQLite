@@ -10,13 +10,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Entity.Place;
+import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class PlaceAdapter extends BaseAdapter
 {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<Place> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Place> objects;
 
     public PlaceAdapter(Context context, ArrayList<Place> products)
     {
@@ -50,9 +51,9 @@ public class PlaceAdapter extends BaseAdapter
             view = lInflater.inflate(R.layout.place, parent, false);
         }
         Place p = (Place)getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textNumber)).setText("№:"+String.valueOf(p.getNumber()));
-        ((TextView) view.findViewById(R.id.textId_Row)).setText("id ряда:"+String.valueOf(p.getId_Row()));
+        ((TextView) view.findViewById(R.id.textNumber)).setText("Место №"+String.valueOf(p.getNumber()));
+        DB_Cinema db_cinema = new DB_Cinema(ctx);
+        ((TextView) view.findViewById(R.id.textId_Row)).setText("Ряд №"+db_cinema.getRowNumberById(p.getId_Row()));
 
         return view;
     }

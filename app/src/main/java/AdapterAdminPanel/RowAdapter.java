@@ -10,13 +10,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Entity.Row;
+import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class RowAdapter extends BaseAdapter
 {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<Row> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Row> objects;
 
     public RowAdapter(Context context, ArrayList<Row> products)
     {
@@ -50,11 +51,11 @@ public class RowAdapter extends BaseAdapter
             view = lInflater.inflate(R.layout.row, parent, false);
         }
         Row p = (Row)getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textNumber)).setText("№:"+String.valueOf(p.getNumber()));
-        ((TextView) view.findViewById(R.id.textId_Hall)).setText("id_Hall:"+String.valueOf(p.getId_Hall()));
-        ((TextView) view.findViewById(R.id.textId_PlaceCategory)).setText("d_PC:"+String.valueOf(p.getId_PlaceCategory()));
-        ((TextView) view.findViewById(R.id.textCount)).setText("Count:"+String.valueOf(p.getCount()));
+        ((TextView) view.findViewById(R.id.textNumber)).setText("Ряд № "+String.valueOf(p.getNumber()));
+
+        DB_Cinema db_cinema = new DB_Cinema(ctx);
+        ((TextView) view.findViewById(R.id.textId_Hall)).setText("Зал № "+String.valueOf(db_cinema.getHallNumberById(p.getId_Hall())));
+        ((TextView) view.findViewById(R.id.textCount)).setText("Мест в ряду:  "+String.valueOf(p.getCount()));
 
         return view;
     }

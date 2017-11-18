@@ -10,12 +10,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Entity.PriceCategory;
+import Entity.Session;
+import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class PriceCategoryAdapter extends BaseAdapter {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<PriceCategory> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<PriceCategory> objects;
 
     public PriceCategoryAdapter(Context context, ArrayList<PriceCategory> products) {
         ctx = context;
@@ -47,10 +49,15 @@ public class PriceCategoryAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.price_category, parent, false);
         }
         PriceCategory p = getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textPrice)).setText(" Цена:"+String.valueOf(p.getPrice()));
-        ((TextView) view.findViewById(R.id.textId_PlaceCategory)).setText("id Категории:"+String.valueOf(p.getId_PlaceCategory()));
-        ((TextView) view.findViewById(R.id.textId_session)).setText(" id Сеанса:"+String.valueOf(p.getId_session()));
+        ((TextView) view.findViewById(R.id.textPrice)).setText(" "+String.valueOf(p.getPrice())+"грн.");
+
+        DB_Cinema db_cinema = new DB_Cinema(ctx);
+        Session session = db_cinema.getSessionById(p.getId_session());
+        String filmName=db_cinema.getFilmNameById(session.getId_Film());
+        ((TextView) view.findViewById(R.id.textId_PlaceCategory)).setText(db_cinema.getPlaceCategoryById(p.getId_PlaceCategory()));
+        ((TextView) view.findViewById(R.id.textFilm)).setText(filmName);
+        ((TextView) view.findViewById(R.id.textSession)).setText(session.getTime()+" "+session.getDate());
+
 
         return view;
     }

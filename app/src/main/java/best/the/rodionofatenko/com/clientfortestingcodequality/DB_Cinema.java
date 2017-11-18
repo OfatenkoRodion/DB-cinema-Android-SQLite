@@ -265,18 +265,6 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return times;
     }
-    public HashSet<Film> getHashSetFilm()
-    {
-        HashSet<Film> films = new HashSet<Film>();
-        Cursor cursor = this.getWritableDatabase().query("Film", null, null, null, null, null, null);
-        if (cursor.moveToFirst()) {
-            do {
-                Film film = new Film((int) cursor.getInt(cursor.getColumnIndex("id")), (String) cursor.getString(cursor.getColumnIndex("name")), (String) cursor.getString(cursor.getColumnIndex("description")));
-                films.add(film);
-            } while (cursor.moveToNext());
-        }
-        return films;
-    }
     public  HashSet<String> getHashSetFilmsByDate(String date)
     {
         HashSet<String> ids = new HashSet<String>();
@@ -306,5 +294,89 @@ public class DB_Cinema extends SQLiteOpenHelper
             }
         }
         return films;
+    }
+    public String getFilmNameById(int id)
+    {
+        String selection = "id = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Film", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                return (String) cursor.getString(cursor.getColumnIndex("name"));
+            }
+            while (cursor.moveToNext());
+        }
+        return null;
+    }
+    public String getPlaceCategoryById(int id)
+    {
+        String selection = "id = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("PlaceCategory", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                return (String) cursor.getString(cursor.getColumnIndex("name"));
+            }
+            while (cursor.moveToNext());
+        }
+        return null;
+    }
+    public Session getSessionById(int id)
+    {
+        String selection = "id = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Session", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                return new Session(cursor.getInt(cursor.getColumnIndex("id")),cursor.getString(cursor.getColumnIndex("date")),cursor.getString(cursor.getColumnIndex("time")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_Film")));
+            }
+            while (cursor.moveToNext());
+        }
+        return null;
+    }
+    public String getHallNumberById(int id)
+    {
+        String selection = "id = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Hall", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                return (String) cursor.getString(cursor.getColumnIndex("number"));
+            }
+            while (cursor.moveToNext());
+        }
+        return null;
+    }
+    public String getRowNumberById(int id)
+    {
+        String selection = "id = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Row", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                return (String) cursor.getString(cursor.getColumnIndex("number"));
+            }
+            while (cursor.moveToNext());
+        }
+        return null;
+    }
+    public String getPlaceNumberById(int id)
+    {
+        String selection = "id = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Place", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                return (String) cursor.getString(cursor.getColumnIndex("number"));
+            }
+            while (cursor.moveToNext());
+        }
+        return null;
     }
 }

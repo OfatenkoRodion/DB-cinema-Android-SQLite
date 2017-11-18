@@ -13,9 +13,9 @@ import Entity.Hall;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class HallAdapter extends BaseAdapter {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<Hall> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Hall> objects;
 
     public HallAdapter(Context context, ArrayList<Hall> products) {
         ctx = context;

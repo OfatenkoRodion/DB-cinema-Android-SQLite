@@ -13,9 +13,9 @@ import Entity.Film;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class FilmAdapter extends BaseAdapter {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<Film> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Film> objects;
 
     public FilmAdapter(Context context, ArrayList<Film> products) {
         ctx = context;

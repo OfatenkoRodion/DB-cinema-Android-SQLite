@@ -93,7 +93,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="id Зала" />
+                        android:text="Зал" />
 
                     <Spinner
                         android:id="@+id/sessionId_HallSpinner"
@@ -104,7 +104,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="id Фильма" />
+                        android:text="Фильм" />
 
                     <Spinner
                         android:id="@+id/sessionId_FilmSpinner"

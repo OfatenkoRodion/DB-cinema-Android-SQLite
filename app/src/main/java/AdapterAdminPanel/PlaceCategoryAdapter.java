@@ -13,9 +13,9 @@ import Entity.PlaceCategory;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class PlaceCategoryAdapter extends BaseAdapter {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<PlaceCategory> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<PlaceCategory> objects;
 
     public PlaceCategoryAdapter(Context context, ArrayList<PlaceCategory> products) {
         ctx = context;

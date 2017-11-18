@@ -9,13 +9,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import Entity.Session;
 import Entity.Ticket;
+import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class TicketAdapter extends BaseAdapter {
-    Context ctx;
-    LayoutInflater lInflater;
-    ArrayList<Ticket> objects;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Ticket> objects;
 
     public TicketAdapter(Context context, ArrayList<Ticket> products) {
         ctx = context;
@@ -46,10 +48,15 @@ public class TicketAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.ticket, parent, false);
         }
         Ticket p = (Ticket)getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textId_Session)).setText(" id_Session:"+String.valueOf(p.getId_Session()));
-        ((TextView) view.findViewById(R.id.textId_Place)).setText(" id_Place:"+String.valueOf(p.getId_Place()));
-        ((TextView) view.findViewById(R.id.textStatus)).setText("status:"+String.valueOf(p.getStatus()));
+
+        DB_Cinema db_cinema = new DB_Cinema(ctx);
+        Session session = db_cinema.getSessionById(p.getId_Session());
+        String filmName=db_cinema.getFilmNameById(session.getId_Film());
+
+        ((TextView) view.findViewById(R.id.textId_Session)).setText(filmName + " "+session.getTime()+" "+session.getDate());
+
+        ((TextView) view.findViewById(R.id.textId_Place)).setText("Место №"+db_cinema .getPlaceNumberById(p.getId_Place()));
+        ((TextView) view.findViewById(R.id.textStatus)).setText(String.valueOf(p.getStatus()));
 
         return view;
     }
