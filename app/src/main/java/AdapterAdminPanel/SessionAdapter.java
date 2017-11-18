@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Entity.Session;
+import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class SessionAdapter extends BaseAdapter  {
@@ -46,11 +47,9 @@ public class SessionAdapter extends BaseAdapter  {
             view = lInflater.inflate(R.layout.session, parent, false);
         }
         Session p = (Session)getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textDate)).setText(" Date:"+String.valueOf(p.getDate()));
-        ((TextView) view.findViewById(R.id.textTime)).setText(" Time:"+String.valueOf(p.getTime()));
-        ((TextView) view.findViewById(R.id.textId_Hall)).setText(" Id_Hall:"+String.valueOf(p.getId_Hall()));
-        ((TextView) view.findViewById(R.id.textId_Film)).setText(" Id_Film:"+String.valueOf(p.getId_Film()));
+        ((TextView) view.findViewById(R.id.textDate)).setText(String.valueOf(p.getDate()));
+        ((TextView) view.findViewById(R.id.textTime)).setText(String.valueOf(p.getTime())+" ");
+        ((TextView) view.findViewById(R.id.textId_Film)).setText(String.valueOf(p.getId_Film()));
 
         return view;
     }

@@ -46,8 +46,7 @@ public class PlaceCategoryAdapter extends BaseAdapter {
             view = lInflater.inflate(R.layout.place_category, parent, false);
         }
         PlaceCategory p = getProduct(position);
-        ((TextView) view.findViewById(R.id.textId)).setText("id:"+String.valueOf(p.getId()));
-        ((TextView) view.findViewById(R.id.textName)).setText(" Name:"+String.valueOf(p.getName()));
+        ((TextView) view.findViewById(R.id.textName)).setText("Категория: "+String.valueOf(p.getName()));
 
         return view;
     }
