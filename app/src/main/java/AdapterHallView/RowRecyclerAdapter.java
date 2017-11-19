@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entity.Row;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class RowRecyclerAdapter extends RecyclerView.Adapter<RowRecyclerViewHolder>
 {
-    private ArrayList<String> rows = new ArrayList<>();
+    private ArrayList<Row> rows = new ArrayList<>();
 
-    public void addAll(List<String> items)
+    public void addAll(List<Row> items)
     {
         int pos = getItemCount();
         this.rows.addAll(items);

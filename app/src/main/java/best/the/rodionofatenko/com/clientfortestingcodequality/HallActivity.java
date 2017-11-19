@@ -33,9 +33,7 @@ public class HallActivity extends AppCompatActivity
         time=getIntent().getStringExtra("time");
         date=getIntent().getStringExtra("date");
 
-        Toast.makeText(this,filmName,Toast.LENGTH_LONG).show();
-        Toast.makeText(this,time,Toast.LENGTH_LONG).show();
-        Toast.makeText(this,date,Toast.LENGTH_LONG).show();
-        //adapter.addAll();
+        String hall_number=db_cinema.getHallByDateTimeFilm(db_cinema.getFilmIdByName(filmName),time,date);
+        adapter.addAll(db_cinema.getListRowByHall(hall_number));
     }
 }

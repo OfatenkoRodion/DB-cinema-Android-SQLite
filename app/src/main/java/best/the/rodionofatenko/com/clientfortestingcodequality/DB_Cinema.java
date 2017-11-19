@@ -309,6 +309,20 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return null;
     }
+    public String getFilmIdByName(String name)
+    {
+        String selection = "name = ?";
+        String selectionArgs[]=new String[] { String.valueOf(name) };
+        Cursor cursor = this.getWritableDatabase().query("Film", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                return (String) cursor.getString(cursor.getColumnIndex("id"));
+            }
+            while (cursor.moveToNext());
+        }
+        return null;
+    }
     public String getPlaceCategoryById(int id)
     {
         String selection = "id = ?";
@@ -378,5 +392,33 @@ public class DB_Cinema extends SQLiteOpenHelper
             while (cursor.moveToNext());
         }
         return null;
+    }
+    public String getHallByDateTimeFilm(String id_film,String time,String date)
+    {
+        Cursor cursor= this.getWritableDatabase().query("Session",
+                null,
+                "date = ? and id_Film = ? and time = ?",
+                new String[]{String.valueOf(date),String.valueOf(id_film),String.valueOf(time)}, null, null, null);
+        if (cursor.moveToFirst()){
+            do  {
+                return cursor.getString(cursor.getColumnIndex("id_Hall"));
+
+            } while (cursor.moveToNext());
+        }
+        return null;
+    }
+    public ArrayList<Row> getListRowByHall(String Hall)
+    {
+        ArrayList<Row> rows = new ArrayList<Row>();
+        String selection = "id_Hall = ?";
+        String selectionArgs[]=new String[] { String.valueOf(Hall) };
+        Cursor cursor= this.getWritableDatabase().query("Row",null,selection,selectionArgs,null,null,null);
+        if (cursor.moveToFirst()){
+            do  {
+                Row row = new Row(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_PlaceCategory")),cursor.getInt(cursor.getColumnIndex("count")));
+                rows.add(row);
+            } while (cursor.moveToNext());
+        }
+        return rows;
     }
 }
