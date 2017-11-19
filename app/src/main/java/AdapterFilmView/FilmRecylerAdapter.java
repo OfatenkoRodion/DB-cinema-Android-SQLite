@@ -14,10 +14,12 @@ import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHolder>
 {
     private ArrayList<AllSessionsOfFilmInDay> items = new ArrayList<>();
+    private String date;
 
-    public void addAll(ArrayList<AllSessionsOfFilmInDay> items)
+    public void addAll(ArrayList<AllSessionsOfFilmInDay> items, String date)
     {
         int pos = getItemCount();
+        this.date=date;
         this.items.addAll(items);
         notifyItemChanged(pos,this.items.size());
     }
@@ -31,7 +33,7 @@ public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHol
     @Override
     public void onBindViewHolder(FilmRecyclerViewHolder holder, int position)
     {
-        holder.bind(items.get(position).getAllSessionsTimes(),items.get(position).getFilm());
+        holder.bind(items.get(position).getAllSessionsTimes(),items.get(position).getFilm(),date);
     }
 
     @Override

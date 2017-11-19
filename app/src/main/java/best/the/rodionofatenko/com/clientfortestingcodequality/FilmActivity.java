@@ -30,9 +30,7 @@ public class FilmActivity extends AppCompatActivity
         db_cinema = new DB_Cinema(this);
 
         initRecycler();
-
     }
-
     private void initRecycler()
     {
         horizontalLinearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
