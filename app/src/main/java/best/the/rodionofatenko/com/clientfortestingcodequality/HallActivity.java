@@ -6,7 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import AdapterHallView.RowRecyclerAdapter;
+import DataPackaging.PlaceInRow;
+import Entity.Row;
 
 public class HallActivity extends AppCompatActivity
 {
@@ -34,6 +38,15 @@ public class HallActivity extends AppCompatActivity
         date=getIntent().getStringExtra("date");
 
         String hall_number=db_cinema.getHallByDateTimeFilm(db_cinema.getFilmIdByName(filmName),time,date);
-        adapter.addAll(db_cinema.getListRowByHall(hall_number));
+
+        ArrayList<PlaceInRow> placeInRows = new ArrayList<>();
+        ArrayList<Row> rows = db_cinema.getListRowByHall(hall_number);
+
+        for (Row row: rows)
+        {
+          placeInRows.add(new PlaceInRow(row, db_cinema.getListPlacerByRowId(row.getId())));
+        }
+
+        adapter.addAll(placeInRows);
     }
 }

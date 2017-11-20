@@ -41,7 +41,6 @@ public class FilmRecyclerViewHolder extends RecyclerView.ViewHolder
 
         adapter=new TimeRecylerAdapter();
         recyclerView.setAdapter(adapter);
-
     }
 
     public void bind(final ArrayList<String> times, final Film film, final String date)

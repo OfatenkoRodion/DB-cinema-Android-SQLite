@@ -421,4 +421,20 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return rows;
     }
+    public ArrayList<Place> getListPlacerByRowId(int id)
+    {
+        ArrayList<Place> places= new ArrayList<>();
+        String selection = "id = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Place", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                Place place = new Place(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("id_Row")));
+                places.add(place);
+            }
+            while (cursor.moveToNext());
+        }
+        return places;
+    }
 }

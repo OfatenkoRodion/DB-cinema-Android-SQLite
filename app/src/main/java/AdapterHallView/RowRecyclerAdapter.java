@@ -1,5 +1,6 @@
 package AdapterHallView;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +9,20 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import AdapterFilmView.TimeRecylerAdapter;
+import DataPackaging.PlaceInRow;
 import Entity.Row;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class RowRecyclerAdapter extends RecyclerView.Adapter<RowRecyclerViewHolder>
 {
-    private ArrayList<Row> rows = new ArrayList<>();
+    private ArrayList<PlaceInRow> rows = new ArrayList<>();
 
-    public void addAll(List<Row> items)
+
+    public void addAll(List<PlaceInRow> items)
     {
         int pos = getItemCount();
-        this.rows.addAll(items);
+        rows.addAll(items);
         notifyItemChanged(pos,this.rows.size());
     }
     @Override
@@ -30,9 +34,8 @@ public class RowRecyclerAdapter extends RecyclerView.Adapter<RowRecyclerViewHold
     @Override
     public void onBindViewHolder(RowRecyclerViewHolder holder, int position)
     {
-        holder.bind(rows.get(position));
+        holder.bind(rows.get(position).getRow(),rows.get(position).getPlaces());
     }
-
     @Override
     public int getItemCount()
     {
