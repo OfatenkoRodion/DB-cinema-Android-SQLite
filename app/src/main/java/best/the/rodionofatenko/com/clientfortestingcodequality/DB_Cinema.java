@@ -44,11 +44,11 @@ public class DB_Cinema extends SQLiteOpenHelper
         sqLiteDatabase.execSQL("CREATE table PriceCategory(id integer PRIMARY KEY autoincrement,id_PlaceCategory integer NOT NULL, id_session integer NOT NULL, price integer NOT NULL," +
                 " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
                 " FOREIGN KEY(id_session) REFERENCES Session(id)," +
-                " UNIQUE (id_PlaceCategory,price));");
+                " UNIQUE (id_PlaceCategory,id_session));");
         sqLiteDatabase.execSQL("CREATE table Row(id integer PRIMARY KEY autoincrement,number integer NOT NULL, id_Hall integer NOT NULL, id_PlaceCategory integer NOT NULL, count integer NOT NULL," +
                 " FOREIGN KEY(id_Hall) REFERENCES Hall(id)," +
                 " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
-                " UNIQUE (id_Hall,id_PlaceCategory));");
+                " UNIQUE (number,id_Hall,id_PlaceCategory),UNIQUE (number,id_Hall));");
         sqLiteDatabase.execSQL("CREATE table Place(id integer PRIMARY KEY autoincrement,id_Row integer NOT NULL, number integer NOT NULL," +
                 " FOREIGN KEY(id_Row) REFERENCES Row(id)," +
                 " UNIQUE(id_Row,number));");
@@ -424,7 +424,7 @@ public class DB_Cinema extends SQLiteOpenHelper
     public ArrayList<Place> getListPlacerByRowId(int id)
     {
         ArrayList<Place> places= new ArrayList<>();
-        String selection = "id = ?";
+        String selection = "id_Row = ?";
         String selectionArgs[]=new String[] { String.valueOf(id) };
         Cursor cursor = this.getWritableDatabase().query("Place", null,selection,selectionArgs, null, null, null);
         if (cursor.moveToFirst()) {

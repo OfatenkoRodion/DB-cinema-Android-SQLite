@@ -17,9 +17,11 @@ public class PlaceRecyclerViewHolder extends RecyclerView.ViewHolder
     {
         super(itemView);
         place =(TextView) itemView.findViewById(R.id.place);
+        itemView.findViewById(R.id.placeCardView).setBackgroundColor(android.graphics.Color.argb(255,124,252,0));
     }
     public void bind(Place place)
     {
         this.place.setText(String.valueOf(place.getNumber()));
+        //this.place.setBackgroundColor(android.graphics.Color.argb(255,124,252,0));
     }
 }

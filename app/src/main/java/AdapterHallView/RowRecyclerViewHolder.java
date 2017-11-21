@@ -37,7 +37,6 @@ public class RowRecyclerViewHolder extends RecyclerView.ViewHolder
     {
         adapter.addAll(places);
         adapter.notifyItemChanged(places.size());
-
         this.row.setText("№"+row.getNumber()+", всего мест "+ row.getCount());
     }
 }
