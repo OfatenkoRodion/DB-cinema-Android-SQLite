@@ -47,6 +47,6 @@ public class HallActivity extends AppCompatActivity
           placeInRows.add(new PlaceInRow(row, db_cinema.getListPlacerByRowId(row.getId())));
         }
 
-        adapter.addAll(placeInRows);
+        adapter.addAll(placeInRows,db_cinema.getIdByDateTimeFilm(db_cinema.getFilmIdByName(filmName),time,date));
     }
 }

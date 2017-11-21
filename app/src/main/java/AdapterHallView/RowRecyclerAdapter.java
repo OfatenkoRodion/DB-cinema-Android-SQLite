@@ -17,10 +17,11 @@ import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 public class RowRecyclerAdapter extends RecyclerView.Adapter<RowRecyclerViewHolder>
 {
     private ArrayList<PlaceInRow> rows = new ArrayList<>();
+    private String id_session;
 
-
-    public void addAll(List<PlaceInRow> items)
+    public void addAll(List<PlaceInRow> items, String id_session)
     {
+        this.id_session=id_session;
         int pos = getItemCount();
         rows.addAll(items);
         notifyItemChanged(pos,this.rows.size());
@@ -34,7 +35,7 @@ public class RowRecyclerAdapter extends RecyclerView.Adapter<RowRecyclerViewHold
     @Override
     public void onBindViewHolder(RowRecyclerViewHolder holder, int position)
     {
-        holder.bind(rows.get(position).getRow(),rows.get(position).getPlaces());
+        holder.bind(rows.get(position).getRow(),rows.get(position).getPlaces(), id_session);
     }
     @Override
     public int getItemCount()

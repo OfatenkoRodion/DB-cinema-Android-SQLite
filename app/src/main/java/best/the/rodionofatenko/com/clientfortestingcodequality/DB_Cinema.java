@@ -437,4 +437,32 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return places;
     }
+    public String getTicketByIdPlaceAndIdSession(int idPlace,int idSession)
+    {
+        Cursor cursor= this.getWritableDatabase().query("Ticket",
+                null,
+                "id_Place = ? and id_Session = ? ",
+                new String[]{String.valueOf(idPlace),String.valueOf(idSession)}, null, null, null);
+        if (cursor.moveToFirst()){
+            do  {
+                return cursor.getString(cursor.getColumnIndex("status"));
+
+            } while (cursor.moveToNext());
+        }
+        return null;
+    }
+    public String getIdByDateTimeFilm(String id_film,String time,String date)
+    {
+        Cursor cursor= this.getWritableDatabase().query("Session",
+                null,
+                "date = ? and id_Film = ? and time = ?",
+                new String[]{String.valueOf(date),String.valueOf(id_film),String.valueOf(time)}, null, null, null);
+        if (cursor.moveToFirst()){
+            do  {
+                return cursor.getString(cursor.getColumnIndex("id"));
+
+            } while (cursor.moveToNext());
+        }
+        return null;
+    }
 }
