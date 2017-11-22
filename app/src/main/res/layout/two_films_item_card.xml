@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/inner_card1"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_gravity="start"
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="5dp">
+
+                <LinearLayout
+                    android:background="@color/colorPrimarySecond"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewFilmName1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="название"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerTimes1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal"
+                            android:padding="2dp">
+                        </android.support.v7.widget.RecyclerView>
+
+                        <TextView
+                            android:id="@+id/textViewDescription1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="textMultiLine"
+                            android:text="описание" />
+
+                </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/inner_card2"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_gravity="end"
+            android:layout_width="320dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            card_view:cardBackgroundColor="@android:color/white"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="5dp">
+
+                <LinearLayout
+                    android:background="@color/colorPrimarySecond"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textViewFilmName2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="название"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerTimes2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scrollbars="horizontal"
+                            android:padding="2dp">
+                        </android.support.v7.widget.RecyclerView>
+
+                        <TextView
+                            android:id="@+id/textViewDescription2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ems="10"
+                            android:inputType="textMultiLine"
+                            android:text="описание" />
+
+                </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+</LinearLayout>

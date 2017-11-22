@@ -24,7 +24,7 @@ public class DayRecyclerViewHolder extends RecyclerView.ViewHolder
         super(itemView);
         recyclerView =(RecyclerView) itemView.findViewById(R.id.recyclerDays);
         date=(TextView) itemView.findViewById(R.id.textViewDate);
-        horizontalLinearLayoutManager=new LinearLayoutManager(itemView.getContext(),LinearLayoutManager.HORIZONTAL,false);
+        horizontalLinearLayoutManager=new LinearLayoutManager(itemView.getContext());
         recyclerView.setLayoutManager(horizontalLinearLayoutManager);
 
         adapter=new FilmRecylerAdapter();

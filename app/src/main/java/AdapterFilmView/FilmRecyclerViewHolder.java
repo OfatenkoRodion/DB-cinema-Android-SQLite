@@ -34,9 +34,9 @@ public class FilmRecyclerViewHolder extends RecyclerView.ViewHolder
     {
         super(itemView);
         ctx=itemView.getContext();
-        recyclerView =(RecyclerView) itemView.findViewById(R.id.recyclerTimes);
-        name=(TextView) itemView.findViewById(R.id.textViewFilmName);
-        description=(TextView) itemView.findViewById(R.id.textViewDescription);
+        recyclerView =(RecyclerView) itemView.findViewById(R.id.recyclerTimes1);
+        name=(TextView) itemView.findViewById(R.id.textViewFilmName1);
+        description=(TextView) itemView.findViewById(R.id.textViewDescription1);
         horizontalLinearLayoutManager=new LinearLayoutManager(itemView.getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(horizontalLinearLayoutManager);
 

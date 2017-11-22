@@ -26,7 +26,7 @@ public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHol
     @Override
     public FilmRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.film_item_card,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.two_films_item_card,parent,false);
         return new FilmRecyclerViewHolder(view);
     }
 
