@@ -46,7 +46,7 @@ public class RowRecyclerViewHolder extends RecyclerView.ViewHolder
     {
         adapter.addAll(places,id_session);
         adapter.notifyItemChanged(places.size());
-        this.row.setText("№"+row.getNumber()+", всего мест "+ row.getCount());
+        this.row.setText("№"+row.getNumber());
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(itemView.getContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener()
                 {
@@ -54,18 +54,14 @@ public class RowRecyclerViewHolder extends RecyclerView.ViewHolder
                     {
                         DB_Cinema db_cinema = new DB_Cinema(ctx);
                         db_cinema.addTicket(Integer.valueOf(id_session),places.get(position).getId(),"Куплено");
-                        adapter.clear();
-                        adapter.addAll(places,id_session);
-                        adapter.reload();
+                        adapter.notifyDataSetChanged();
                     }
 
                     @Override public void onLongItemClick(View view, int position)
                     {
                         DB_Cinema db_cinema = new DB_Cinema(ctx);
                         db_cinema.addTicket(Integer.valueOf(id_session),places.get(position).getId(),"Куплено");
-                        adapter.clear();
-                        adapter.addAll(places,id_session);
-                        adapter.reload();
+                        adapter.notifyDataSetChanged();
                     }
                 })
         );

@@ -422,6 +422,16 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
             rows.clear();
             rows.addAll(0, db_cinema.getListRow());
             rowAdapter.notifyDataSetChanged();
+
+            Toast.makeText(this,String.valueOf(rows.get(rows.size()-1).getCount()),Toast.LENGTH_LONG).show();
+
+            for (int i=1;i<=rows.get(rows.size()-1).getCount();i++)
+            {
+                db_cinema.addPlace(Integer.valueOf(i),rows.get(rows.size()-1).getId());
+            }
+            places.clear();
+            places.addAll(0, db_cinema.getListPlace());
+            placeAdapter.notifyDataSetChanged();
         }
         catch (Exception e)
         {
