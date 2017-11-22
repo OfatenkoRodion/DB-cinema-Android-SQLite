@@ -21,11 +21,13 @@
                     android:id="@+id/textViewDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="текст" />
+                    android:text="текст"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:layout_gravity="center"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerDays"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
                     android:padding="8dp">

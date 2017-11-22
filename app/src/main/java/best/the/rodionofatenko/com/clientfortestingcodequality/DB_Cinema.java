@@ -39,7 +39,7 @@ public class DB_Cinema extends SQLiteOpenHelper
         sqLiteDatabase.execSQL("CREATE table Session(id integer PRIMARY KEY autoincrement, date text NOT NULL, time text NOT NULL, id_Hall integer NOT NULL, id_Film integer NOT NULL," +
                 " FOREIGN KEY(id_Film) REFERENCES Film(id)," +
                 " FOREIGN KEY(id_Hall) REFERENCES Hall(id)," +
-                " UNIQUE (date, time, id_Hall));");
+                " UNIQUE (date, time, id_Film));");
         sqLiteDatabase.execSQL("CREATE table PlaceCategory(id integer PRIMARY KEY autoincrement, name text NOT NULL);");
         sqLiteDatabase.execSQL("CREATE table PriceCategory(id integer PRIMARY KEY autoincrement,id_PlaceCategory integer NOT NULL, id_session integer NOT NULL, price integer NOT NULL," +
                 " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +

@@ -33,7 +33,7 @@ public class DayRecyclerViewHolder extends RecyclerView.ViewHolder
 
     public void bind(ArrayList<AllSessionsOfFilmInDay> times, String date)
     {
-        this.date.setText(date);
+        this.date.setText("Расписание на "+date);
         adapter.addAll(times,date);
         adapter.notifyItemChanged(times.size());
     }

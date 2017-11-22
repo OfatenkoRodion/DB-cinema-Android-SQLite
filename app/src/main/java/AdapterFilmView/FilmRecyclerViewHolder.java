@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,13 @@ public class FilmRecyclerViewHolder extends RecyclerView.ViewHolder
     public void bind(final ArrayList<String> times, final Film film, final String date)
     {
         this.name.setText(film.getName());
-        this.description.setText(film.getDescription());
+
+        String temp=film.getDescription();
+        if (temp.length()>=200)
+        {
+            temp=temp.substring(0,200)+"...";
+        }
+        this.description.setText(temp);
         adapter.addAll(times);
         adapter.notifyItemChanged(times.size());
         recyclerView.addOnItemTouchListener(
