@@ -21,6 +21,7 @@ public class PlaceRecyclerAdapter extends RecyclerView.Adapter<PlaceRecyclerView
     private String id_session;
     public void addAll(List<Place> items, String  id_session)
     {
+        places.clear();
         this.id_session=id_session;
         int pos = getItemCount();
         this.places.addAll(items);

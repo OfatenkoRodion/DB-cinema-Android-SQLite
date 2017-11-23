@@ -16,6 +16,7 @@ public class DayRecylerAdapter extends RecyclerView.Adapter<DayRecyclerViewHolde
 
     public void addAll(ArrayList<AllSessionTimesByDay> items)
     {
+        this.items.clear();
         int pos = getItemCount();
         this.items.addAll(items);
         notifyItemChanged(pos,this.items.size());

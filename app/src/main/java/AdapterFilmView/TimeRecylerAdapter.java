@@ -16,6 +16,7 @@ public class TimeRecylerAdapter extends RecyclerView.Adapter<TimeRecyclerViewHol
 
     public void addAll(List<String> fakeItems)
     {
+        items.clear();
         int pos = getItemCount();
         this.items.addAll(fakeItems);
         notifyItemChanged(pos,this.items.size());
@@ -31,7 +32,6 @@ public class TimeRecylerAdapter extends RecyclerView.Adapter<TimeRecyclerViewHol
     {
         holder.bind(items.get(position));
     }
-
     @Override
     public int getItemCount()
     {

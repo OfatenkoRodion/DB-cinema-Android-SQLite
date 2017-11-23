@@ -21,6 +21,7 @@ public class RowRecyclerAdapter extends RecyclerView.Adapter<RowRecyclerViewHold
 
     public void addAll(List<PlaceInRow> items, String id_session)
     {
+        rows.clear();
         this.id_session=id_session;
         int pos = getItemCount();
         rows.addAll(items);

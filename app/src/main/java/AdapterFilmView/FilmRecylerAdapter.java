@@ -15,11 +15,11 @@ import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHolder>
 {
     private ArrayList<AllSessionOfFilmInDayGroupBy2> myItems = new ArrayList<>();
-    private ArrayList<AllSessionsOfFilmInDay> items = new ArrayList<>();
     private String date;
 
     public void addAll(ArrayList<AllSessionsOfFilmInDay> items, String date)
     {
+        myItems.clear();
         if (items.size()%2==0)
         {
             for (int i=0;i<items.size();i=i+2)
@@ -37,7 +37,6 @@ public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHol
         }
         int pos = getItemCount();
         this.date=date;
-        this.items.addAll(items);
         notifyItemChanged(pos,this.myItems.size());
     }
     @Override
