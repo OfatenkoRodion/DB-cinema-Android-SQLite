@@ -57,7 +57,40 @@ public class DB_Cinema extends SQLiteOpenHelper
                 " FOREIGN KEY(id_Place) REFERENCES Place(id)," +
                 " UNIQUE(id_Session, id_Place));");
     }
-
+    public void clear()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS Ticket;");
+        db.execSQL("DROP TABLE IF EXISTS Place;");
+        db.execSQL("DROP TABLE IF EXISTS Row;");
+        db.execSQL("DROP TABLE IF EXISTS PriceCategory;");
+        db.execSQL("DROP TABLE IF EXISTS PlaceCategory;");
+        db.execSQL("DROP TABLE IF EXISTS Session;");
+        db.execSQL("DROP TABLE IF EXISTS Film;");
+        db.execSQL("DROP TABLE IF EXISTS Hall;");
+        db.execSQL("CREATE table Film(id integer PRIMARY KEY autoincrement, name text NOT NULL, description text NOT NULL, UNIQUE(name));");
+        db.execSQL("CREATE table Hall(id integer PRIMARY KEY autoincrement, number integer NOT NULL, spaciousness integer NOT NULL, UNIQUE(number));");
+        db.execSQL("CREATE table Session(id integer PRIMARY KEY autoincrement, date text NOT NULL, time text NOT NULL, id_Hall integer NOT NULL, id_Film integer NOT NULL," +
+                " FOREIGN KEY(id_Film) REFERENCES Film(id)," +
+                " FOREIGN KEY(id_Hall) REFERENCES Hall(id)," +
+                " UNIQUE (date, time, id_Film));");
+        db.execSQL("CREATE table PlaceCategory(id integer PRIMARY KEY autoincrement, name text NOT NULL);");
+        db.execSQL("CREATE table PriceCategory(id integer PRIMARY KEY autoincrement,id_PlaceCategory integer NOT NULL, id_session integer NOT NULL, price integer NOT NULL," +
+                " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
+                " FOREIGN KEY(id_session) REFERENCES Session(id)," +
+                " UNIQUE (id_PlaceCategory,id_session));");
+        db.execSQL("CREATE table Row(id integer PRIMARY KEY autoincrement,number integer NOT NULL, id_Hall integer NOT NULL, id_PlaceCategory integer NOT NULL, count integer NOT NULL," +
+                " FOREIGN KEY(id_Hall) REFERENCES Hall(id)," +
+                " FOREIGN KEY(id_PlaceCategory) REFERENCES PlaceCategory(id)," +
+                " UNIQUE (number,id_Hall,id_PlaceCategory),UNIQUE (number,id_Hall));");
+        db.execSQL("CREATE table Place(id integer PRIMARY KEY autoincrement,id_Row integer NOT NULL, number integer NOT NULL," +
+                " FOREIGN KEY(id_Row) REFERENCES Row(id)," +
+                " UNIQUE(id_Row,number));");
+        db.execSQL("CREATE table Ticket(id integer PRIMARY KEY autoincrement, id_Session integer NOT NULL, id_Place integer NOT NULL, status text NOT NULL," +
+                " FOREIGN KEY(id_Session) REFERENCES Session(id)," +
+                " FOREIGN KEY(id_Place) REFERENCES Place(id)," +
+                " UNIQUE(id_Session, id_Place));");
+    }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1)
     {

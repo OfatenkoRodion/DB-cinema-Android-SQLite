@@ -20,16 +20,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Админ панель"
-            />
+                android:text="Админ панель" />
 
             <Button
                 android:id="@+id/userPanelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Пользовательская панель"
-            />
+                android:text="Пользовательская панель" />
+
+            <Button
+                android:id="@+id/clearButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Очистить базу" />
 
         </LinearLayout>
 
