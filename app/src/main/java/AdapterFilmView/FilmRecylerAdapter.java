@@ -7,21 +7,38 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import DataPackaging.AllSessionOfFilmInDayGroupBy2;
 import DataPackaging.AllSessionTimesByDay;
 import DataPackaging.AllSessionsOfFilmInDay;
 import best.the.rodionofatenko.com.clientfortestingcodequality.R;
 
 public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHolder>
 {
+    private ArrayList<AllSessionOfFilmInDayGroupBy2> myItems = new ArrayList<>();
     private ArrayList<AllSessionsOfFilmInDay> items = new ArrayList<>();
     private String date;
 
     public void addAll(ArrayList<AllSessionsOfFilmInDay> items, String date)
     {
+        if (items.size()%2==0)
+        {
+            for (int i=0;i<items.size();i=i+2)
+            {
+                myItems.add(new AllSessionOfFilmInDayGroupBy2(items.get(i),items.get(i+1)));
+            }
+        }
+        else
+        {
+            for (int i=0;i<items.size()-1;i=i+2)
+            {
+                myItems.add(new AllSessionOfFilmInDayGroupBy2(items.get(i),items.get(i+1)));
+            }
+            myItems.add(new AllSessionOfFilmInDayGroupBy2(items.get(items.size()-1),new AllSessionsOfFilmInDay(null,null)));
+        }
         int pos = getItemCount();
         this.date=date;
         this.items.addAll(items);
-        notifyItemChanged(pos,this.items.size());
+        notifyItemChanged(pos,this.myItems.size());
     }
     @Override
     public FilmRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
@@ -33,12 +50,12 @@ public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHol
     @Override
     public void onBindViewHolder(FilmRecyclerViewHolder holder, int position)
     {
-        holder.bind(items.get(position).getAllSessionsTimes(),items.get(position).getFilm(),date);
+        holder.bind(myItems.get(position),date);
     }
 
     @Override
     public int getItemCount()
     {
-        return items.size();
+        return myItems.size();
     }
 }
