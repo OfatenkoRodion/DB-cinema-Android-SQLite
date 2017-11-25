@@ -62,8 +62,8 @@ public class BasicActivity extends AppCompatActivity implements View.OnClickList
             db_cinema.addPlaceCategory("vip");
             db_cinema.addPlaceCategory("good");
 
-            db_cinema.addHall(1,100);
-            for (int i=1;i<=10;i++)
+            db_cinema.addHall(1,60);
+            for (int i=1;i<=6;i++)
             {
                 db_cinema.addRow(i,1,1,10);
                 for (int j=1;j<=10;j++)
@@ -71,22 +71,19 @@ public class BasicActivity extends AppCompatActivity implements View.OnClickList
                     db_cinema.addPlace(j,i);
                 }
             }
-
-
-            db_cinema.addHall(2,110);
-            for (int i=11;i<=20;i++)
+            db_cinema.addHall(2,60);
+            for (int i=7;i<=12;i++)
             {
-                db_cinema.addRow(i-10,2,1,10);
-                for (int j=1;j<=11;j++)
+                db_cinema.addRow(i-6,2,1,10);
+                for (int j=1;j<=10;j++)
                 {
                     db_cinema.addPlace(j,i);
                 }
             }
-
-            db_cinema.addHall(3,80);
-            for (int i=21;i<=29;i++)
+            db_cinema.addHall(3,60);
+            for (int i=13;i<=18;i++)
             {
-                db_cinema.addRow(i-21,3,1,10);
+                db_cinema.addRow(i-12,3,1,10);
                 for (int j=1;j<=10;j++)
                 {
                     db_cinema.addPlace(j,i);
