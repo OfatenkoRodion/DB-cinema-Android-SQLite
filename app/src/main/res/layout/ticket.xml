@@ -5,6 +5,15 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text=""
+            android:textSize="16sp">
+        </TextView>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -27,15 +36,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                     android:textSize="20sp">
                 </TextView>
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text=""
-            android:textSize="16sp">
-        </TextView>
+        </LinearLayout>
 
 </LinearLayout>

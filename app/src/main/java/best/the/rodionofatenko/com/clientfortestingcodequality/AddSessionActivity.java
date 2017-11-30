@@ -2,6 +2,7 @@ package best.the.rodionofatenko.com.clientfortestingcodequality;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -83,7 +84,6 @@ public class AddSessionActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_session);
         db_cinema = new DB_Cinema(this);
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initializationButtons();
         initializationEditText();
 
