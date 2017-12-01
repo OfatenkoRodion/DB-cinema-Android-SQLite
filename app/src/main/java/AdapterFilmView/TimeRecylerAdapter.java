@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.R;
 
 public class TimeRecylerAdapter extends RecyclerView.Adapter<TimeRecyclerViewHolder>
 {

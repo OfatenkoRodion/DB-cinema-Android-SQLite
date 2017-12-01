@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import DataPackaging.AllSessionTimesByDay;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.R;
 
 public class DayRecylerAdapter extends RecyclerView.Adapter<DayRecyclerViewHolder>
 {

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Entity.PlaceCategory;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.R;
 
 public class PlaceCategoryAdapter extends BaseAdapter {
     private Context ctx;

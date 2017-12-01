@@ -1,8 +1,7 @@
-package best.the.rodionofatenko.com.clientfortestingcodequality;
+package best.the.rodionofatenko.com.Main;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;

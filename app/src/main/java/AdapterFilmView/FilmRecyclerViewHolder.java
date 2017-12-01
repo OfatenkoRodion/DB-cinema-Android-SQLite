@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 import DataPackaging.AllSessionOfFilmInDayGroupBy2;
 import Entity.Film;
-import best.the.rodionofatenko.com.clientfortestingcodequality.HallActivity;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
-import best.the.rodionofatenko.com.clientfortestingcodequality.RecyclerItemClickListener;
+import best.the.rodionofatenko.com.Main.HallActivity;
+import best.the.rodionofatenko.com.Main.R;
+import best.the.rodionofatenko.com.Main.RecyclerItemClickListener;
 
 import static android.support.v4.content.ContextCompat.startActivity;
 

@@ -1,4 +1,4 @@
-package best.the.rodionofatenko.com.clientfortestingcodequality;
+package best.the.rodionofatenko.com.Main;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;

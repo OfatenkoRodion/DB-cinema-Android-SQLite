@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import DataPackaging.AllSessionsOfFilmInDay;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.R;
 
 public class DayRecyclerViewHolder extends RecyclerView.ViewHolder
 {

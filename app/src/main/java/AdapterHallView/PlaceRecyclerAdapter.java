@@ -10,8 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entity.Place;
-import Entity.Row;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.R;
 
 public class PlaceRecyclerAdapter extends RecyclerView.Adapter<PlaceRecyclerViewHolder>
 {

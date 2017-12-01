@@ -1,16 +1,15 @@
-package best.the.rodionofatenko.com.clientfortestingcodequality;
+package best.the.rodionofatenko.com.Main;
 
-import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import AdapterHallView.RowRecyclerAdapter;
 import DataPackaging.PlaceInRow;
+import Entity.Place;
 import Entity.Row;
 
 public class HallActivity extends AppCompatActivity
@@ -45,7 +44,18 @@ public class HallActivity extends AppCompatActivity
 
         for (Row row: rows)
         {
-          placeInRows.add(new PlaceInRow(row, db_cinema.getListPlacerByRowId(row.getId())));
+
+            ArrayList<Place> places = db_cinema.getListPlacerByRowId(row.getId());
+            placeInRows.add(new PlaceInRow(row,places));
+
+               /*String temp="=>";
+               for (int i=0;i<places.size();i++)
+               {
+                   temp+="id: "+places.get(i).getId();
+               }
+               temp+="\r\n";
+               ((TextView)findViewById(R.id.textView13)).setText( ((TextView)findViewById(R.id.textView13)).getText()+temp);*/
+
         }
 
         adapter.addAll(placeInRows,db_cinema.getIdByDateTimeFilm(db_cinema.getFilmIdByName(filmName),time,date));

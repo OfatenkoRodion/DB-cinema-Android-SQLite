@@ -1,11 +1,9 @@
-package best.the.rodionofatenko.com.clientfortestingcodequality;
+package best.the.rodionofatenko.com.Main;
 
-import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashSet;

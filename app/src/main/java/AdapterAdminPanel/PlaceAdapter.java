@@ -10,8 +10,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import Entity.Place;
-import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.DB_Cinema;
+import best.the.rodionofatenko.com.Main.R;
 
 public class PlaceAdapter extends BaseAdapter
 {

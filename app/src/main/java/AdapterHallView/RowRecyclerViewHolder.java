@@ -2,25 +2,18 @@ package AdapterHallView;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-import AdapterFilmView.TimeRecylerAdapter;
 import Entity.Place;
 import Entity.Row;
-import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
-import best.the.rodionofatenko.com.clientfortestingcodequality.HallActivity;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
-import best.the.rodionofatenko.com.clientfortestingcodequality.RecyclerItemClickListener;
-
-import static android.support.v4.content.ContextCompat.startActivity;
+import best.the.rodionofatenko.com.Main.DB_Cinema;
+import best.the.rodionofatenko.com.Main.R;
+import best.the.rodionofatenko.com.Main.RecyclerItemClickListener;
 
 public class RowRecyclerViewHolder extends RecyclerView.ViewHolder
 {

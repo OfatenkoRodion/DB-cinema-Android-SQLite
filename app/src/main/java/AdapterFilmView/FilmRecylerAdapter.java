@@ -8,9 +8,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import DataPackaging.AllSessionOfFilmInDayGroupBy2;
-import DataPackaging.AllSessionTimesByDay;
 import DataPackaging.AllSessionsOfFilmInDay;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.R;
 
 public class FilmRecylerAdapter extends RecyclerView.Adapter<FilmRecyclerViewHolder>
 {

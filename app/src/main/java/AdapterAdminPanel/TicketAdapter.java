@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 import Entity.Session;
 import Entity.Ticket;
-import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.DB_Cinema;
+import best.the.rodionofatenko.com.Main.R;
 
 public class TicketAdapter extends BaseAdapter {
     private Context ctx;

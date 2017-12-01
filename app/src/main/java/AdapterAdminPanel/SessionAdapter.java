@@ -6,13 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Entity.Session;
-import best.the.rodionofatenko.com.clientfortestingcodequality.DB_Cinema;
-import best.the.rodionofatenko.com.clientfortestingcodequality.R;
+import best.the.rodionofatenko.com.Main.DB_Cinema;
+import best.the.rodionofatenko.com.Main.R;
 
 public class SessionAdapter extends BaseAdapter  {
     private Context ctx;
