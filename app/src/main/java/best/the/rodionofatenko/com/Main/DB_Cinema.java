@@ -496,4 +496,9 @@ public class DB_Cinema extends SQLiteOpenHelper
         }
         return null;
     }
+
+    public void delTicket(int id)
+    {
+        this.getWritableDatabase().delete("Ticket", "id = " + id, null);
+    }
 }

@@ -1,11 +1,14 @@
 package AdapterAdminPanel;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -47,7 +50,7 @@ public class TicketAdapter extends BaseAdapter {
         if (view == null) {
             view = lInflater.inflate(R.layout.ticket, parent, false);
         }
-        Ticket p = (Ticket)getProduct(position);
+        final Ticket p = (Ticket)getProduct(position);
 
         DB_Cinema db_cinema = new DB_Cinema(ctx);
         Session session = db_cinema.getSessionById(p.getId_Session());
@@ -58,10 +61,23 @@ public class TicketAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.textId_Place)).setText("Место №"+db_cinema .getPlaceNumberById(p.getId_Place()));
         ((TextView) view.findViewById(R.id.textStatus)).setText(String.valueOf(p.getStatus()));
 
+        ImageButton imageButton = (ImageButton) view.findViewById(R.id.buttonDel);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                DB_Cinema db_cinema=new DB_Cinema(view.getContext());
+                db_cinema.delTicket(p.getId());
+                Toast.makeText(view.getContext(),"Удалено",Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
     public Ticket getProduct(int position) {
         return ((Ticket) getItem(position));
     }
+
 
 }
