@@ -20,7 +20,7 @@ import best.the.rodionofatenko.com.Main.R;
 public class TicketAdapter extends BaseAdapter {
     private Context ctx;
     private LayoutInflater lInflater;
-    private ArrayList<Ticket> objects;
+    final private ArrayList<Ticket> objects;
 
     public TicketAdapter(Context context, ArrayList<Ticket> products) {
         ctx = context;
@@ -69,6 +69,8 @@ public class TicketAdapter extends BaseAdapter {
             {
                 DB_Cinema db_cinema=new DB_Cinema(view.getContext());
                 db_cinema.delTicket(p.getId());
+                objects.remove(p);
+                TicketAdapter.this.notifyDataSetChanged();
                 Toast.makeText(view.getContext(),"Удалено",Toast.LENGTH_SHORT).show();
             }
         });

@@ -5,10 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import Entity.Place;
 import Entity.Row;
 import best.the.rodionofatenko.com.Main.DB_Cinema;
 import best.the.rodionofatenko.com.Main.R;
@@ -50,13 +53,37 @@ public class RowAdapter extends BaseAdapter
         {
             view = lInflater.inflate(R.layout.row, parent, false);
         }
-        Row p = (Row)getProduct(position);
+        final Row p = (Row)getProduct(position);
         ((TextView) view.findViewById(R.id.textNumber)).setText("Ряд № "+String.valueOf(p.getNumber()));
 
         DB_Cinema db_cinema = new DB_Cinema(ctx);
         ((TextView) view.findViewById(R.id.textId_Hall)).setText("Зал № "+String.valueOf(db_cinema.getHallNumberById(p.getId_Hall())));
         ((TextView) view.findViewById(R.id.textCount)).setText("Мест в ряду:  "+String.valueOf(p.getCount()));
 
+        ImageButton imageButton = (ImageButton) view.findViewById(R.id.buttonDel);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                DB_Cinema db_cinema=new DB_Cinema(view.getContext());
+                db_cinema.delTicketbyIdPlace(p.getId());
+
+                ArrayList<Place> places = db_cinema.getListPlacerByRowId(p.getId());
+
+                for (Place pl:places)
+                {
+                    db_cinema.delTicketbyIdPlace(pl.getId());
+                    db_cinema.delPlace(pl.getId());
+                }
+
+                db_cinema.delRow(p.getId());
+                objects.remove(p);
+                RowAdapter.this.notifyDataSetChanged();
+                Toast.makeText(view.getContext(),"Удалено",Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return view;
     }
     public Row getProduct(int position)

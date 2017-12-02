@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -48,7 +50,7 @@ public class PriceCategoryAdapter extends BaseAdapter {
         if (view == null) {
             view = lInflater.inflate(R.layout.price_category, parent, false);
         }
-        PriceCategory p = getProduct(position);
+        final PriceCategory p = getProduct(position);
         ((TextView) view.findViewById(R.id.textPrice)).setText(" "+String.valueOf(p.getPrice())+"грн.");
 
         DB_Cinema db_cinema = new DB_Cinema(ctx);
@@ -58,6 +60,19 @@ public class PriceCategoryAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.textFilm)).setText(filmName);
         ((TextView) view.findViewById(R.id.textSession)).setText(session.getTime()+" "+session.getDate());
 
+        ImageButton imageButton = (ImageButton) view.findViewById(R.id.buttonDel);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                DB_Cinema db_cinema=new DB_Cinema(view.getContext());
+                db_cinema.delPriceCategory(p.getId());
+                objects.remove(p);
+                PriceCategoryAdapter.this.notifyDataSetChanged();
+                Toast.makeText(view.getContext(),"Удалено",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

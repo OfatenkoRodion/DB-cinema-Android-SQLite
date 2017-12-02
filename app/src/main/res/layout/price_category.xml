@@ -44,6 +44,12 @@
                         android:textSize="14sp">
                 </TextView>
 
+                <ImageButton
+                    android:id="@+id/buttonDel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:src="@mipmap/ic_delete_forever_black_24dp" />
         </LinearLayout>
 
 </LinearLayout>
