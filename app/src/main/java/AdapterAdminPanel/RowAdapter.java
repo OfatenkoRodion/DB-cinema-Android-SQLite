@@ -67,7 +67,6 @@ public class RowAdapter extends BaseAdapter
             public void onClick(View view)
             {
                 DB_Cinema db_cinema=new DB_Cinema(view.getContext());
-                db_cinema.delTicketbyIdPlace(p.getId());
 
                 ArrayList<Place> places = db_cinema.getListPlacerByRowId(p.getId());
 

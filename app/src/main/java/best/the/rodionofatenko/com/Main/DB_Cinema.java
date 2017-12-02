@@ -516,4 +516,40 @@ public class DB_Cinema extends SQLiteOpenHelper
     {
         this.getWritableDatabase().delete("PriceCategory", "id = " + id, null);
     }
+    public ArrayList<PriceCategory> getListPriceCategoryByPlaceCategoryId(int id)
+    {
+        ArrayList<PriceCategory> priceCategorys= new ArrayList<>();
+        String selection = "id_PlaceCategory = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("PriceCategory", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                PriceCategory priceCategory = new PriceCategory(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("id_PlaceCategory")),cursor.getInt(cursor.getColumnIndex("id_session")),cursor.getInt(cursor.getColumnIndex("price")));
+                priceCategorys.add(priceCategory);
+            }
+            while (cursor.moveToNext());
+        }
+        return priceCategorys;
+    }
+    public ArrayList<Row> getListRowsByPlaceCategoryId(int id)
+    {
+        ArrayList<Row> rows= new ArrayList<>();
+        String selection = "id_PlaceCategory = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Row", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                Row row = new Row(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_PlaceCategory")),cursor.getInt(cursor.getColumnIndex("count")));
+                rows.add(row);
+            }
+            while (cursor.moveToNext());
+        }
+        return rows;
+    }
+    public void delPlaceCategory(int id)
+    {
+        this.getWritableDatabase().delete("PlaceCategory", "id = " + id, null);
+    }
 }

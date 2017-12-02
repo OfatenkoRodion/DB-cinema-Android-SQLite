@@ -5,11 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 
+import Entity.Place;
 import Entity.PlaceCategory;
+import Entity.PriceCategory;
+import Entity.Row;
+import best.the.rodionofatenko.com.Main.DB_Cinema;
 import best.the.rodionofatenko.com.Main.R;
 
 public class PlaceCategoryAdapter extends BaseAdapter {
@@ -45,9 +52,40 @@ public class PlaceCategoryAdapter extends BaseAdapter {
         if (view == null) {
             view = lInflater.inflate(R.layout.place_category, parent, false);
         }
-        PlaceCategory p = getProduct(position);
+        final PlaceCategory p = getProduct(position);
         ((TextView) view.findViewById(R.id.textName)).setText("Категория: "+String.valueOf(p.getName()));
 
+        ImageButton imageButton = (ImageButton) view.findViewById(R.id.buttonDel);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                DB_Cinema db_cinema=new DB_Cinema(view.getContext());
+
+                ArrayList<PriceCategory> priceCategories=db_cinema.getListPriceCategoryByPlaceCategoryId(p.getId());
+
+                for (PriceCategory pc:priceCategories)
+                    db_cinema.delPriceCategory(pc.getId());
+
+                ArrayList<Row> rows = db_cinema.getListRowsByPlaceCategoryId(p.getId());
+
+                for (Row row: rows)
+                {
+                    ArrayList<Place> places = db_cinema.getListPlacerByRowId(row.getId());
+
+                    for (Place pl:places)
+                    {
+                        db_cinema.delTicketbyIdPlace(pl.getId());
+                        db_cinema.delPlace(pl.getId());
+                    }
+                }
+                db_cinema.delPlaceCategory(p.getId());
+                objects.remove(p);
+                PlaceCategoryAdapter.this.notifyDataSetChanged();
+                Toast.makeText(view.getContext(),"Удалено",Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
     }
     public PlaceCategory getProduct(int position) {
