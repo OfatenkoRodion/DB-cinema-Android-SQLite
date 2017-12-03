@@ -556,7 +556,6 @@ public class DB_Cinema extends SQLiteOpenHelper
     {
         this.getWritableDatabase().delete("Hall", "id = " + id, null);
     }
-
     public void delSessionByHallId(int id)
     {
         this.getWritableDatabase().delete("Session", "id_Hall = " + id, null);
@@ -576,5 +575,41 @@ public class DB_Cinema extends SQLiteOpenHelper
             while (cursor.moveToNext());
         }
         return rows;
+    }
+    public void delFilm(int id)
+    {
+        this.getWritableDatabase().delete("Film", "id = " + id, null);
+    }
+    public ArrayList<Session> getListSessionByFilmId(int id)
+    {
+        ArrayList<Session> sessions= new ArrayList<>();
+        String selection = "id_Film = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Session", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                Session session = new Session(cursor.getInt(cursor.getColumnIndex("id")),cursor.getString(cursor.getColumnIndex("date")),cursor.getString(cursor.getColumnIndex("time")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_Film")));
+                sessions.add(session);
+            }
+            while (cursor.moveToNext());
+        }
+        return sessions;
+    }
+    public void delTicketbyIdSession(int idSession)
+    {
+        this.getWritableDatabase().delete("Ticket", "id_Session = " + idSession, null);
+    }
+    public void delPriceCategorybyIdSession(int idSession)
+    {
+        this.getWritableDatabase().delete("PriceCategory", "id_Session = " + idSession, null);
+    }
+    public void delSessionbyFilmId(int idFilm)
+    {
+        this.getWritableDatabase().delete("Session", "id_Film = " + idFilm, null);
+    }
+    public void delSession(int id)
+    {
+        this.getWritableDatabase().delete("Session", "id = " + id, null);
     }
 }

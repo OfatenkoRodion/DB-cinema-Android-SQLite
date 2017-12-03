@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -46,13 +48,30 @@ public class SessionAdapter extends BaseAdapter  {
         if (view == null) {
             view = lInflater.inflate(R.layout.session, parent, false);
         }
-        Session p = (Session)getProduct(position);
+        final Session p = (Session)getProduct(position);
         ((TextView) view.findViewById(R.id.textDate)).setText(String.valueOf(p.getDate()));
         ((TextView) view.findViewById(R.id.textTime)).setText(String.valueOf(p.getTime())+" ");
 
         DB_Cinema db_cinema = new DB_Cinema(ctx);
         ((TextView) view.findViewById(R.id.textId_Film)).setText(db_cinema.getFilmNameById(p.getId_Film()));
 
+        ImageButton imageButton = (ImageButton) view.findViewById(R.id.buttonDel);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                DB_Cinema db_cinema=new DB_Cinema(view.getContext());
+                
+                db_cinema.delTicketbyIdSession(p.getId());
+                db_cinema.delPriceCategorybyIdSession(p.getId());
+
+                db_cinema.delSession(p.getId());
+                objects.remove(p);
+                SessionAdapter.this.notifyDataSetChanged();
+                Toast.makeText(view.getContext(),"Удалено",Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
     }
     public Session getProduct(int position) {

@@ -5,11 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Entity.Film;
+import Entity.Session;
+import best.the.rodionofatenko.com.Main.DB_Cinema;
 import best.the.rodionofatenko.com.Main.R;
 
 public class FilmAdapter extends BaseAdapter {
@@ -45,7 +49,7 @@ public class FilmAdapter extends BaseAdapter {
         if (view == null) {
             view = lInflater.inflate(R.layout.film, parent, false);
         }
-        Film p = (Film)getProduct(position);
+        final Film p = (Film)getProduct(position);
 
         ((TextView) view.findViewById(R.id.textName)).setText(String.valueOf(p.getName()));
         String temp=String.valueOf(p.getDescription());
@@ -55,6 +59,30 @@ public class FilmAdapter extends BaseAdapter {
         }
         ((TextView) view.findViewById(R.id.textDescription)).setText(temp);
 
+        ImageButton imageButton = (ImageButton) view.findViewById(R.id.buttonDel);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                DB_Cinema db_cinema=new DB_Cinema(view.getContext());
+
+                ArrayList<Session> sessions = db_cinema.getListSessionByFilmId(p.getId());
+
+                for (Session session: sessions)
+                {
+                    db_cinema.delTicketbyIdSession(session.getId());
+                    db_cinema.delPriceCategorybyIdSession(session.getId());
+
+                }
+                db_cinema.delSessionbyFilmId(p.getId());
+
+                db_cinema.delFilm(p.getId());
+                objects.remove(p);
+                FilmAdapter.this.notifyDataSetChanged();
+                Toast.makeText(view.getContext(),"Удалено",Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
     }
     public Film getProduct(int position) {
