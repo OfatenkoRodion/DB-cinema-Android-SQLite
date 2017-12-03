@@ -5,11 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Entity.Hall;
+import Entity.Place;
+import Entity.PriceCategory;
+import Entity.Row;
+import best.the.rodionofatenko.com.Main.DB_Cinema;
 import best.the.rodionofatenko.com.Main.R;
 
 public class HallAdapter extends BaseAdapter {
@@ -45,9 +51,40 @@ public class HallAdapter extends BaseAdapter {
         if (view == null) {
             view = lInflater.inflate(R.layout.hall, parent, false);
         }
-        Hall p = (Hall)getProduct(position);
+        final Hall p = (Hall)getProduct(position);
         ((TextView) view.findViewById(R.id.textNumber)).setText("№"+String.valueOf(p.getNumber()));
         ((TextView) view.findViewById(R.id.textSpaciousness)).setText(" - "+String.valueOf(p.getSpaciousness())+" мест");
+
+        ImageButton imageButton = (ImageButton) view.findViewById(R.id.buttonDel);
+        imageButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                DB_Cinema db_cinema = new DB_Cinema(view.getContext());
+
+                ArrayList<Row> rows = db_cinema.getListRowsByHallId(p.getId());
+
+                    for (Row row : rows)
+                    {
+                        ArrayList<Place> places = db_cinema.getListPlacerByRowId(row.getId());
+
+                        for (Place pl : places)
+                        {
+                            db_cinema.delTicketbyIdPlace(pl.getId());
+                            db_cinema.delPlace(pl.getId());
+                        }
+                        db_cinema.delRow(row.getId());
+                    }
+
+                db_cinema.delSessionByHallId(p.getId());
+
+                db_cinema.delHall(p.getId());
+                objects.remove(p);
+                HallAdapter.this.notifyDataSetChanged();
+                Toast.makeText(view.getContext(), "Удалено", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

@@ -552,4 +552,29 @@ public class DB_Cinema extends SQLiteOpenHelper
     {
         this.getWritableDatabase().delete("PlaceCategory", "id = " + id, null);
     }
+    public void delHall(int id)
+    {
+        this.getWritableDatabase().delete("Hall", "id = " + id, null);
+    }
+
+    public void delSessionByHallId(int id)
+    {
+        this.getWritableDatabase().delete("Session", "id_Hall = " + id, null);
+    }
+    public ArrayList<Row> getListRowsByHallId(int id)
+    {
+        ArrayList<Row> rows= new ArrayList<>();
+        String selection = "id_Hall = ?";
+        String selectionArgs[]=new String[] { String.valueOf(id) };
+        Cursor cursor = this.getWritableDatabase().query("Row", null,selection,selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            do
+            {
+                Row row = new Row(cursor.getInt(cursor.getColumnIndex("id")),cursor.getInt(cursor.getColumnIndex("number")),cursor.getInt(cursor.getColumnIndex("id_Hall")),cursor.getInt(cursor.getColumnIndex("id_PlaceCategory")),cursor.getInt(cursor.getColumnIndex("count")));
+                rows.add(row);
+            }
+            while (cursor.moveToNext());
+        }
+        return rows;
+    }
 }

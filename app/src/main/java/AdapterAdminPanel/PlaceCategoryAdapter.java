@@ -61,29 +61,38 @@ public class PlaceCategoryAdapter extends BaseAdapter {
             @Override
             public void onClick(View view)
             {
-                DB_Cinema db_cinema=new DB_Cinema(view.getContext());
 
-                ArrayList<PriceCategory> priceCategories=db_cinema.getListPriceCategoryByPlaceCategoryId(p.getId());
-
-                for (PriceCategory pc:priceCategories)
-                    db_cinema.delPriceCategory(pc.getId());
-
-                ArrayList<Row> rows = db_cinema.getListRowsByPlaceCategoryId(p.getId());
-
-                for (Row row: rows)
+                try
                 {
-                    ArrayList<Place> places = db_cinema.getListPlacerByRowId(row.getId());
+                    DB_Cinema db_cinema = new DB_Cinema(view.getContext());
 
-                    for (Place pl:places)
+                    ArrayList<PriceCategory> priceCategories = db_cinema.getListPriceCategoryByPlaceCategoryId(p.getId());
+
+                    for (PriceCategory pc : priceCategories)
+                        db_cinema.delPriceCategory(pc.getId());
+
+                    ArrayList<Row> rows = db_cinema.getListRowsByPlaceCategoryId(p.getId());
+
+                    for (Row row : rows)
                     {
-                        db_cinema.delTicketbyIdPlace(pl.getId());
-                        db_cinema.delPlace(pl.getId());
+                        ArrayList<Place> places = db_cinema.getListPlacerByRowId(row.getId());
+
+                        for (Place pl : places)
+                        {
+                            db_cinema.delTicketbyIdPlace(pl.getId());
+                            db_cinema.delPlace(pl.getId());
+                        }
+                        db_cinema.delRow(row.getId());
                     }
+                    db_cinema.delPlaceCategory(p.getId());
+                    objects.remove(p);
+                    PlaceCategoryAdapter.this.notifyDataSetChanged();
+                    Toast.makeText(view.getContext(), "Удалено", Toast.LENGTH_SHORT).show();
                 }
-                db_cinema.delPlaceCategory(p.getId());
-                objects.remove(p);
-                PlaceCategoryAdapter.this.notifyDataSetChanged();
-                Toast.makeText(view.getContext(),"Удалено",Toast.LENGTH_SHORT).show();
+                catch (Exception e)
+                {
+                    Toast.makeText(view.getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
         return view;
