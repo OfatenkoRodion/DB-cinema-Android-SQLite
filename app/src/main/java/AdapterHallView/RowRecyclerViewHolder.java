@@ -11,9 +11,9 @@ import java.util.List;
 
 import Entity.Place;
 import Entity.Row;
-import best.the.rodionofatenko.com.Main.DB_Cinema;
-import best.the.rodionofatenko.com.Main.R;
-import best.the.rodionofatenko.com.Main.RecyclerItemClickListener;
+import ro.db_cinema.DB_Cinema;
+import ro.db_cinema.R;
+import ro.db_cinema.RecyclerItemClickListener;
 
 public class RowRecyclerViewHolder extends RecyclerView.ViewHolder
 {

@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import Entity.Place;
-import best.the.rodionofatenko.com.Main.DB_Cinema;
-import best.the.rodionofatenko.com.Main.R;
+import ro.db_cinema.DB_Cinema;
+import ro.db_cinema.R;
 
 public class PlaceRecyclerViewHolder extends RecyclerView.ViewHolder
 {

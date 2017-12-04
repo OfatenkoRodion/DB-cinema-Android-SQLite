@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entity.Place;
-import best.the.rodionofatenko.com.Main.R;
+import ro.db_cinema.R;
 
 public class PlaceRecyclerAdapter extends RecyclerView.Adapter<PlaceRecyclerViewHolder>
 {

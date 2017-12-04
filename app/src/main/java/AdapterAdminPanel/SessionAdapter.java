@@ -12,8 +12,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Entity.Session;
-import best.the.rodionofatenko.com.Main.DB_Cinema;
-import best.the.rodionofatenko.com.Main.R;
+import ro.db_cinema.DB_Cinema;
+import ro.db_cinema.R;
 
 public class SessionAdapter extends BaseAdapter  {
     private Context ctx;

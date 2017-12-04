@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 import DataPackaging.AllSessionOfFilmInDayGroupBy2;
 import Entity.Film;
-import best.the.rodionofatenko.com.Main.HallActivity;
-import best.the.rodionofatenko.com.Main.R;
-import best.the.rodionofatenko.com.Main.RecyclerItemClickListener;
+import ro.db_cinema.HallActivity;
+import ro.db_cinema.RecyclerItemClickListener;
+import ro.db_cinema.R;
 
 import static android.support.v4.content.ContextCompat.startActivity;
 

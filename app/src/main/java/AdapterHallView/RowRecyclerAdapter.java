@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DataPackaging.PlaceInRow;
-import best.the.rodionofatenko.com.Main.R;
+import ro.db_cinema.R;
 
 public class RowRecyclerAdapter extends RecyclerView.Adapter<RowRecyclerViewHolder>
 {

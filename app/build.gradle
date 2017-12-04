@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     buildToolsVersion "26.0.0"
     defaultConfig {
-        applicationId "best.the.rodionofatenko.com.clientfortestingcodequality"
+        applicationId "ro.db_cinema"
         minSdkVersion 18
         targetSdkVersion 26
         versionCode 1
@@ -26,8 +26,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
     compile 'com.android.support:design:26.+'
     compile 'com.android.support:cardview-v7:26.+'
     compile 'com.android.support:recyclerview-v7:26.+'
-    testCompile 'junit:junit:4.12'
 }

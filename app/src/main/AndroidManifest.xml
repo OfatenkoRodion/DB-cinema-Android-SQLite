@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="best.the.rodionofatenko.com.Main">
+    package="ro.db_cinema">
 
     <application
         android:allowBackup="true"
@@ -9,16 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="best.the.rodionofatenko.com.Main.AddSessionActivity" />
-        <activity android:name="best.the.rodionofatenko.com.Main.BasicActivity">
+        <activity android:name=".AddSessionActivity" />
+        <activity android:name=".BasicActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="best.the.rodionofatenko.com.Main.FilmActivity" />
-        <activity android:name="best.the.rodionofatenko.com.Main.HallActivity"></activity>
+        <activity android:name=".FilmActivity" />
+        <activity android:name=".HallActivity"></activity>
     </application>
 
 </manifest>

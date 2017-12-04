@@ -13,8 +13,8 @@ import java.util.ArrayList;
 
 import Entity.PriceCategory;
 import Entity.Session;
-import best.the.rodionofatenko.com.Main.DB_Cinema;
-import best.the.rodionofatenko.com.Main.R;
+import ro.db_cinema.DB_Cinema;
+import ro.db_cinema.R;
 
 public class PriceCategoryAdapter extends BaseAdapter {
     private Context ctx;

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import best.the.rodionofatenko.com.Main.R;
+import ro.db_cinema.R;
 
 public class TimeRecyclerViewHolder extends RecyclerView.ViewHolder
     {
